@@ -46,18 +46,18 @@ export function ContactForm() {
   return (
     <div className="relative">
       {status === "success" ? (
-        <div className="p-8 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-center animate-fadeIn">
-          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+        <div className="p-8 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-center animate-fadeIn">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-600">
             <CheckCircle2 size={32} />
           </div>
-          <h4 className="text-xl font-bold text-white mb-2">Conversation Request Sent</h4>
-          <p className="text-slate-300 text-sm max-w-md mx-auto mb-6">
+          <h4 className="text-xl font-bold text-slate-900 mb-2">Conversation Request Sent</h4>
+          <p className="text-slate-600 text-sm max-w-md mx-auto mb-6">
             Thank you for reaching out to RHEVIX. Our technology leadership team will review your requirements and respond promptly to schedule a discovery conversation.
           </p>
           <button
             type="button"
             onClick={() => setStatus("idle")}
-            className="text-xs uppercase tracking-wider font-semibold text-emerald-400 hover:text-emerald-300 underline underline-offset-4 cursor-pointer"
+            className="text-xs uppercase tracking-wider font-semibold text-emerald-700 hover:text-emerald-800 underline underline-offset-4 cursor-pointer"
           >
             Submit Another Request
           </button>
@@ -66,64 +66,64 @@ export function ContactForm() {
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-4" noValidate>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
-                Name<span className="text-cyan-400">*</span>
+              <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                Name <span className="text-blue-600">*</span>
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 required
-                placeholder="Enter Name"
-                className="w-full h-12 px-4 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all text-sm"
+                placeholder="Your full name"
+                className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all text-sm"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
-                Work Email<span className="text-cyan-400">*</span>
+              <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                Work Email <span className="text-blue-600">*</span>
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 required
-                placeholder="Enter Work Email"
-                className="w-full h-12 px-4 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all text-sm"
+                placeholder="name@company.com"
+                className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all text-sm"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="organization" className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
-              Organization<span className="text-cyan-400">*</span>
+            <label htmlFor="organization" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+              Organization <span className="text-blue-600">*</span>
             </label>
             <input
               type="text"
               id="organization"
               name="organization"
               required
-              placeholder="Enter Organization"
-              className="w-full h-12 px-4 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all text-sm"
+              placeholder="Company or Organization"
+              className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all text-sm"
             />
           </div>
 
           <div>
-            <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
-              How Can We Help?<span className="text-cyan-400">*</span>
+            <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+              How Can We Help? <span className="text-blue-600">*</span>
             </label>
             <textarea
               id="message"
               name="message"
               rows={4}
               required
-              placeholder="Tell us about your challenge or opportunity."
-              className="w-full p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all text-sm resize-none"
+              placeholder="Tell us about your challenge, goals, or upcoming initiative."
+              className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all text-sm resize-none"
             />
           </div>
 
           {status === "error" && (
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-rose-950/40 border border-rose-500/30 text-rose-300 text-xs">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs">
               <AlertCircle size={16} className="shrink-0" />
               <span>{errorMessage}</span>
             </div>
@@ -133,7 +133,7 @@ export function ContactForm() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-sm text-slate-950 bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400 hover:from-cyan-300 hover:to-indigo-300 shadow-[0_0_24px_rgba(56,189,248,0.35)] transition-all transform active:scale-[0.98] disabled:opacity-60 cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-sm text-white bg-slate-900 hover:bg-slate-800 shadow-sm hover:shadow transition-all transform active:scale-[0.98] disabled:opacity-60 cursor-pointer"
             >
               {status === "loading" ? (
                 <>

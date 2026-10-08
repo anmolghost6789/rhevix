@@ -1,100 +1,93 @@
 @import "tailwindcss";
 
 :root {
-  --background: #06080e;
-  --foreground: #f8fafc;
-  --card-bg: rgba(13, 19, 33, 0.75);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-border-hover: rgba(56, 189, 248, 0.4);
-  --cyan-glow: rgba(56, 189, 248, 0.15);
-  --indigo-glow: rgba(99, 102, 241, 0.15);
-  --brand: #38bdf8;
-  --brand-secondary: #818cf8;
+  --background: #fafafc;
+  --foreground: #090a0f;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --brand: #2563eb;
+  --brand-cyan: #0284c7;
+  --brand-indigo: #4f46e5;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
-  background-color: #06080e;
-  color: #f8fafc;
+  background-color: #fafafc;
+  color: #0f172a;
 }
 
 body {
   margin: 0;
-  background-color: #06080e;
-  color: #f8fafc;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #fafafc;
+  color: #0f172a;
+  font-family: 'Hanken Grotesk Variable', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar for Light Mode */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #06080e;
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94a3b8;
 }
 
-/* Glassmorphism & Cybernetic Glow Effects */
+/* Apple/Linear Light Mode Glass Panels */
 .glass-panel {
-  background: rgba(13, 19, 33, 0.65);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.03), 0 8px 24px -6px rgba(15, 23, 42, 0.03);
 }
 
 .glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-panel-hover:hover {
-  border-color: rgba(56, 189, 248, 0.35);
+  border-color: rgba(37, 99, 235, 0.35);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.12);
+  box-shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.07);
 }
 
-.glow-pill {
-  box-shadow: 0 0 20px -3px rgba(56, 189, 248, 0.25);
+/* Ambient Subtle Lighting for Light Mode */
+.glow-ambient-blue {
+  background: radial-gradient(circle 800px at 50% 0%, rgba(37, 99, 235, 0.04), transparent 70%);
 }
 
-.glow-ambient-cyan {
-  background: radial-gradient(circle 600px at 50% 10%, rgba(56, 189, 248, 0.12), transparent 70%);
+.glow-ambient-violet {
+  background: radial-gradient(circle 700px at 80% 20%, rgba(99, 102, 241, 0.035), transparent 70%);
 }
 
-.glow-ambient-indigo {
-  background: radial-gradient(circle 700px at 80% 30%, rgba(99, 102, 241, 0.12), transparent 70%);
-}
-
-.glow-ambient-purple {
-  background: radial-gradient(circle 600px at 20% 60%, rgba(168, 85, 247, 0.09), transparent 70%);
-}
-
-/* High-tech subtle dot and grid matrix */
-.cyber-grid {
-  background-size: 40px 40px;
+/* Subtle Architectural Grid & Dots */
+.light-grid {
+  background-size: 48px 48px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
 }
 
-.cyber-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+.light-dots {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.05); }
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
 }
 
-.animate-pulse-glow {
-  animation: pulseGlow 4s infinite ease-in-out;
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s infinite ease-in-out;
 }

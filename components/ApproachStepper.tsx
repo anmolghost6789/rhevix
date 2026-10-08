@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Compass, Layers, Wrench, RefreshCw, ArrowRight } from "lucide-react";
+import { Compass, Layers, Wrench, RefreshCw } from "lucide-react";
 
 export function ApproachStepper() {
   const [activeStep, setActiveStep] = useState(0);
@@ -58,15 +58,15 @@ export function ApproachStepper() {
               onClick={() => setActiveStep(idx)}
               className={`p-6 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
                 isSelected
-                  ? "bg-slate-900/90 border-cyan-400 shadow-[0_0_25px_rgba(56,189,248,0.2)] transform -translate-y-1"
-                  : "glass-panel glass-panel-hover border-slate-800/80"
+                  ? "bg-white border-blue-600 shadow-md ring-2 ring-blue-100 transform -translate-y-1"
+                  : "bg-white border-slate-200/90 hover:border-slate-300 shadow-[0_2px_10px_rgba(15,23,42,0.02)]"
               }`}
             >
               <div>
-                <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center justify-between mb-4">
                   <span
                     className={`font-mono text-2xl font-black ${
-                      isSelected ? "text-cyan-400" : "text-slate-600"
+                      isSelected ? "text-blue-600" : "text-slate-300"
                     }`}
                   >
                     {s.num}
@@ -74,28 +74,28 @@ export function ApproachStepper() {
                   <div
                     className={`w-10 h-10 rounded-xl flex items-center justify-center border ${
                       isSelected
-                        ? "bg-cyan-500/20 border-cyan-400/40 text-cyan-300"
-                        : "bg-slate-900 border-slate-800 text-slate-400"
+                        ? "bg-blue-50 border-blue-200 text-blue-600"
+                        : "bg-slate-50 border-slate-200 text-slate-500"
                     }`}
                   >
                     <Icon size={18} />
                   </div>
                 </div>
 
-                <h4 className="text-xl font-bold text-white mb-2">{s.phase}</h4>
-                <p className="text-sm text-slate-300 leading-relaxed font-medium mb-4">
+                <h4 className="text-xl font-bold text-slate-900 mb-2">{s.phase}</h4>
+                <p className="text-sm text-slate-700 leading-relaxed font-medium mb-3">
                   {s.headline}
                 </p>
-                <p className="text-xs text-slate-400 leading-relaxed mb-6">
+                <p className="text-xs text-slate-500 leading-relaxed mb-6">
                   {s.details}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-800/80">
+              <div className="pt-4 border-t border-slate-100">
                 <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">
                   Deliverable
                 </span>
-                <span className="text-xs font-semibold text-cyan-300 block">
+                <span className="text-xs font-semibold text-blue-700 block">
                   {s.deliverable}
                 </span>
               </div>
