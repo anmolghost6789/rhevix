@@ -1,70 +1,155 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { FloatingLabelInput } from "@/components/ui/floating-label-input";
-import { MorphButton, type MorphButtonState } from "@/components/spectrumui/morph-button";
+import { ArrowRight, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 
 export function ContactForm() {
-  const form = useRef<HTMLFormElement>(null);
-  const [state, setState] = useState<MorphButtonState>("idle");
-  const [message, setMessage] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const el = e.currentTarget;
-    setState("loading");
-    setMessage("");
+    const form = e.currentTarget;
+    setStatus("loading");
+    setErrorMessage("");
+
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      organization: formData.get("organization"),
+      message: formData.get("message"),
+    };
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(new FormData(el))),
+        body: JSON.stringify(payload),
       });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "The request was not sent. Try again.");
-      setState("success");
-      setMessage("Thank you. We will reply to your work email to arrange the consultation.");
-      el.reset();
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit request. Please try again.");
+      }
+
+      setStatus("success");
+      form.reset();
     } catch (err) {
-      setState("error");
-      setMessage(err instanceof Error ? err.message : "The request was not sent. Try again.");
-      window.setTimeout(() => setState("idle"), 2200);
+      setStatus("error");
+      setErrorMessage(err instanceof Error ? err.message : "An unexpected error occurred. Please try again.");
     }
   }
 
   return (
-    <form ref={form} className="contact-form" onSubmit={onSubmit}>
-      <div className="field-row">
-        <FloatingLabelInput id="name" name="name" label="Full name" autoComplete="name" required />
-        <FloatingLabelInput id="email" name="email" type="email" label="Work email" autoComplete="email" required />
-      </div>
-      <div className="field-row">
-        <FloatingLabelInput id="organisation" name="organisation" label="Organisation" autoComplete="organization" required />
-        <select id="interest" name="interest" defaultValue="" required aria-label="Area of interest">
-          <option value="" disabled>Area of interest</option>
-          <option>Engineering capacity</option>
-          <option>AI data and evaluation</option>
-          <option>Production AI</option>
-          <option>Legacy modernisation</option>
-          <option>Not sure yet</option>
-        </select>
-      </div>
-      <textarea id="message" name="message" required aria-label="Brief description"
-        placeholder="What are you trying to achieve? Include timelines and any constraints." />
-      <div className="form-foot">
-        <MorphButton
-          state={state}
-          size="lg"
-          loadingLabel="Sending"
-          successLabel="Request sent"
-          errorLabel="Not sent"
-          onClick={() => form.current?.requestSubmit()}
-        >
-          Book a consultation
-        </MorphButton>
-        <p className="form-note">We use these details only to respond to your enquiry.</p>
-      </div>
-      <p className="form-status" role="status" aria-live="polite">{message}</p>
-    </form>
+    <div className="relative">
+      {status === "success" ? (
+        <div className="p-8 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-center animate-fadeIn">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <CheckCircle2 size={32} />
+          </div>
+          <h4 className="text-xl font-bold text-white mb-2">Conversation Request Sent</h4>
+          <p className="text-slate-300 text-sm max-w-md mx-auto mb-6">
+            Thank you for reaching out to RHEVIX. Our technology leadership team will review your requirements and respond promptly to schedule a discovery conversation.
+          </p>
+          <button
+            type="button"
+            onClick={() => setStatus("idle")}
+            className="text-xs uppercase tracking-wider font-semibold text-emerald-400 hover:text-emerald-300 underline underline-offset-4 cursor-pointer"
+          >
+            Submit Another Request
+          </button>
+        </div>
+      ) : (
+        <form ref={formRef} onSubmit={handleSubmit} className="space-y-4" noValidate>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+                Name<span className="text-cyan-400">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="Enter Name"
+                className="w-full h-12 px-4 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all text-sm"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+                Work Email<span className="text-cyan-400">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="Enter Work Email"
+                className="w-full h-12 px-4 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all text-sm"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="organization" className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+              Organization<span className="text-cyan-400">*</span>
+            </label>
+            <input
+              type="text"
+              id="organization"
+              name="organization"
+              required
+              placeholder="Enter Organization"
+              className="w-full h-12 px-4 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all text-sm"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+              How Can We Help?<span className="text-cyan-400">*</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={4}
+              required
+              placeholder="Tell us about your challenge or opportunity."
+              className="w-full p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all text-sm resize-none"
+            />
+          </div>
+
+          {status === "error" && (
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-rose-950/40 border border-rose-500/30 text-rose-300 text-xs">
+              <AlertCircle size={16} className="shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          <div className="pt-2">
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-sm text-slate-950 bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400 hover:from-cyan-300 hover:to-indigo-300 shadow-[0_0_24px_rgba(56,189,248,0.35)] transition-all transform active:scale-[0.98] disabled:opacity-60 cursor-pointer"
+            >
+              {status === "loading" ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  <span>Connecting...</span>
+                </>
+              ) : (
+                <>
+                  <span>Start a Conversation</span>
+                  <ArrowRight size={16} />
+                </>
+              )}
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
   );
 }

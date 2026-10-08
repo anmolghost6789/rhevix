@@ -1,9 +1,20 @@
-// Placeholder handler. Connect to your email provider or CRM before launch.
+// Contact handler for Rhevix briefing requests
 export async function POST(request: Request) {
   const data = await request.json().catch(() => null);
-  if (!data?.name || !data?.email || !data?.organisation || !data?.message) {
-    return Response.json({ error: "Complete your name, work email, organisation and a brief description." }, { status: 400 });
+  const org = data?.organization || data?.organisation;
+  if (!data?.name || !data?.email || !org || !data?.message) {
+    return Response.json(
+      { error: "Please enter your name, work email, organization, and details on how we can help." },
+      { status: 400 }
+    );
   }
-  console.log("New briefing request", data);
-  return Response.json({ ok: true });
+  console.log("New Rhevix conversation request:", {
+    name: data.name,
+    email: data.email,
+    organization: org,
+    message: data.message,
+    timestamp: new Date().toISOString(),
+  });
+  return Response.json({ ok: true, message: "Request received successfully" });
 }
+
