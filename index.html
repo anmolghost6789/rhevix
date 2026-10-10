@@ -1,0 +1,4065 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RHEVIX — Intelligence, Engineered for What's Next</title>
+  <meta name="description" content="RHEVIX builds intelligent software, AI-powered systems, and modern data platforms that help forward-looking enterprises turn complex challenges into meaningful progress.">
+  <meta name="keywords" content="Rhevix, Artificial Intelligence, AI Agents, Data Engineering, Software Engineering, Cloud Infrastructure, Machine Learning">
+  <meta name="theme-color" content="#F7F8FA">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="RHEVIX — Intelligence, Engineered for What's Next">
+  <meta property="og:description" content="Frontier AI engineering, data platforms, and cloud architectures built with mathematical discipline and enterprise reliability.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts: Space Grotesk (Headings), Inter (Body), JetBrains Mono (Technical Tags) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CDNs: Three.js, GSAP, ScrollTrigger, Lucide Icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & RESET (Neo-Industrial Digital Luxury)
+       ========================================================================== */
+    :root {
+      --bg-base: #F7F8FA;
+      --bg-card: #FFFFFF;
+      --bg-card-subtle: #F2F4F8;
+      --bg-card-hover: #FFFFFF;
+      --bg-dark: #0B0D11;
+      --bg-dark-surface: #14171F;
+      
+      --text-primary: #101114;
+      --text-secondary: #626773;
+      --text-tertiary: #8D93A1;
+      --text-inverse: #FFFFFF;
+      --text-inverse-muted: #9BA3AF;
+
+      --accent-blue: #4566FF;
+      --accent-blue-light: #EEF2FF;
+      --accent-violet: #8765FF;
+      --accent-violet-light: #F4F0FF;
+      --accent-cyan: #00D2FF;
+      --accent-emerald: #059669;
+
+      --border-color: #E3E6ED;
+      --border-dark: #222631;
+      --border-hover: #4566FF;
+
+      --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 14px;
+      --radius-full: 9999px;
+
+      --shadow-subtle: 0 1px 3px rgba(16, 17, 20, 0.04), 0 4px 12px rgba(16, 17, 20, 0.02);
+      --shadow-hover: 0 12px 30px rgba(69, 102, 255, 0.08), 0 4px 12px rgba(16, 17, 20, 0.04);
+      --shadow-elevated: 0 20px 40px rgba(16, 17, 20, 0.08), 0 1px 3px rgba(16, 17, 20, 0.04);
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-standard: all 0.28s var(--ease-out-expo);
+      --transition-slow: all 0.5s var(--ease-out-expo);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    ::selection {
+      background: rgba(69, 102, 255, 0.15);
+      color: var(--accent-blue);
+    }
+
+    /* Subtle Technical Grid Background */
+    .bg-tech-grid {
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(227, 230, 237, 0.55) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(227, 230, 237, 0.55) 1px, transparent 1px);
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      line-height: 1.15;
+    }
+
+    p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition-standard);
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* ==========================================================================
+       2. CUSTOM CURSOR (Desktop Non-Obtrusive Precision Ring)
+       ========================================================================== */
+    #cursor-dot, #cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s ease;
+    }
+
+    #cursor-dot {
+      width: 5px;
+      height: 5px;
+      background-color: var(--accent-blue);
+      border-radius: 50%;
+    }
+
+    #cursor-ring {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(69, 102, 255, 0.45);
+      border-radius: 50%;
+      transition: width 0.22s var(--ease-out-expo), height 0.22s var(--ease-out-expo), border-color 0.22s ease, background-color 0.22s ease;
+    }
+
+    #cursor-ring.active {
+      width: 48px;
+      height: 48px;
+      border-color: var(--accent-blue);
+      background-color: rgba(69, 102, 255, 0.05);
+    }
+
+    @media (pointer: coarse) {
+      #cursor-dot, #cursor-ring { display: none !important; }
+    }
+
+    /* ==========================================================================
+       3. SIGNATURE PRELOADER (Initializing Intelligence)
+       ========================================================================== */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background-color: var(--bg-base);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s var(--ease-out-expo), visibility 0.6s ease;
+    }
+
+    #preloader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .preloader-core {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .preloader-svg {
+      width: 100%;
+      height: 100%;
+      animation: spinSlow 12s linear infinite;
+    }
+
+    @keyframes spinSlow {
+      to { transform: rotate(360deg); }
+    }
+
+    .preloader-bar-wrap {
+      width: 240px;
+      height: 2px;
+      background: var(--border-color);
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
+    }
+
+    .preloader-bar-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-violet));
+      transition: width 0.15s linear;
+    }
+
+    .preloader-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .preloader-skip {
+      position: absolute;
+      bottom: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-sm);
+      transition: var(--transition-standard);
+    }
+    .preloader-skip:hover {
+      color: var(--accent-blue);
+      border-color: var(--accent-blue);
+    }
+
+    /* ==========================================================================
+       4. NAVIGATION & HEADER
+       ========================================================================== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.25rem 2rem;
+      transition: var(--transition-standard);
+    }
+
+    .site-header.scrolled {
+      padding: 0.75rem 2rem;
+    }
+
+    .nav-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 1.4rem;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition-standard);
+    }
+
+    .site-header.scrolled .nav-container {
+      background: rgba(255, 255, 255, 0.94);
+      border-color: rgba(69, 102, 255, 0.18);
+      box-shadow: 0 10px 25px rgba(16, 17, 20, 0.05);
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-item a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav-item a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--accent-blue);
+      transition: width 0.25s var(--ease-out-expo);
+    }
+
+    .nav-item a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-item a:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      background: var(--bg-card-subtle);
+      padding: 0.3rem 0.65rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--accent-emerald);
+      box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.6);
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(5, 150, 105, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 0.65rem 1.35rem;
+      border-radius: var(--radius-full);
+      transition: var(--transition-standard);
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--text-primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(16, 17, 20, 0.12);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-blue);
+      transform: translateY(-1.5px);
+      box-shadow: 0 6px 20px rgba(69, 102, 255, 0.28);
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-primary);
+      background: #FAFBFD;
+      transform: translateY(-1px);
+    }
+
+    .btn-magnetic {
+      will-change: transform;
+    }
+
+    /* Mobile Nav Hamburger */
+    .mobile-menu-btn {
+      display: none;
+      width: 38px;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      color: var(--text-primary);
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 380px;
+      height: 100vh;
+      background: #FFFFFF;
+      z-index: 10001;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+      transition: right 0.4s var(--ease-out-expo);
+    }
+
+    .mobile-drawer.open {
+      right: 0;
+    }
+
+    .mobile-drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(16, 17, 20, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-standard);
+    }
+
+    .mobile-drawer-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ==========================================================================
+       5. HERO SECTION
+       ========================================================================== */
+    .hero-section {
+      min-height: 100vh;
+      padding: 8.5rem 2rem 4rem 2rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.35rem 0.9rem;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      width: fit-content;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .hero-badge-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent-blue);
+      letter-spacing: 0.08em;
+    }
+
+    .hero-badge-divider {
+      width: 1px;
+      height: 12px;
+      background: var(--border-color);
+    }
+
+    .hero-badge-text {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+    }
+
+    .hero-title {
+      font-size: clamp(2.75rem, 5.2vw, 4.85rem);
+      line-height: 1.05;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.04em;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 580px;
+      line-height: 1.6;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .hero-telemetry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 1rem;
+    }
+
+    .telemetry-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .telemetry-val {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .telemetry-lbl {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* 3D Hero Canvas Container */
+    .hero-canvas-wrap {
+      position: relative;
+      width: 100%;
+      height: 580px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #hero-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      outline: none;
+    }
+
+    .hero-canvas-frame {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border: 1px dashed rgba(227, 230, 237, 0.8);
+      border-radius: var(--radius-lg);
+    }
+
+    .frame-corner {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: var(--accent-blue);
+      border-style: solid;
+      pointer-events: none;
+    }
+    .frame-corner-tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .frame-corner-tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+    .frame-corner-bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+    .frame-corner-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+    .hero-spec-tag {
+      position: absolute;
+      bottom: 1rem;
+      right: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-tertiary);
+      background: rgba(255, 255, 255, 0.8);
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ==========================================================================
+       6. TELEMETRY MARQUEE BAR
+       ========================================================================== */
+    .marquee-bar {
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.9rem 0;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      align-items: center;
+      gap: 3rem;
+      animation: marqueeScroll 36s linear infinite;
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .marquee-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--accent-blue);
+      border-radius: 50%;
+    }
+
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ==========================================================================
+       7. SECTION LAYOUT SYSTEM (Neo-Industrial Structure)
+       ========================================================================== */
+    .section-wrap {
+      padding: 7rem 2rem;
+      position: relative;
+    }
+
+    .section-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-header {
+      margin-bottom: 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-blue);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-label::before {
+      content: '//';
+      color: var(--text-tertiary);
+    }
+
+    .section-title {
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+    }
+
+    .section-desc {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      line-height: 1.65;
+    }
+
+    /* Neo-Brutalist Technical Crosshair Intersections */
+    .tech-cross {
+      position: absolute;
+      color: var(--border-color);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ==========================================================================
+       8. EXPERTISE SECTION (3D Modular Cards)
+       ========================================================================== */
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .expertise-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: var(--transition-standard);
+      overflow: hidden;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .expertise-card:hover {
+      border-color: var(--accent-blue);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+    }
+
+    .expertise-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .expertise-canvas-container {
+      width: 140px;
+      height: 140px;
+      position: relative;
+      background: var(--bg-card-subtle);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+
+    .expertise-canvas-container canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .expertise-index {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border-color);
+      padding: 0.25rem 0.55rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .expertise-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+      color: var(--text-primary);
+    }
+
+    .expertise-desc {
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+      flex-grow: 1;
+    }
+
+    .expertise-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .tag-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      background: var(--bg-card-subtle);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      transition: var(--transition-standard);
+    }
+
+    .expertise-card:hover .tag-pill {
+      background: #FFFFFF;
+      border-color: rgba(69, 102, 255, 0.25);
+    }
+
+    /* ==========================================================================
+       9. SIGNATURE STORYTELLING — "FROM SIGNAL TO SOLUTION"
+       ========================================================================== */
+    .pipeline-section {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .pipeline-system {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .pipeline-visual-panel {
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      position: relative;
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .pipeline-stage-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+
+    .signal-canvas-wrap {
+      width: 100%;
+      height: 280px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #signal-canvas {
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius-md);
+    }
+
+    .signal-readout {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    .signal-metric {
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+
+    .pipeline-steps-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .pipeline-card {
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.75rem 2rem;
+      cursor: pointer;
+      transition: var(--transition-standard);
+      position: relative;
+    }
+
+    .pipeline-card::before {
+      content: '';
+      position: absolute;
+      left: -1px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: transparent;
+      transition: background 0.3s ease;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .pipeline-card.active {
+      background: #FFFFFF;
+      border-color: var(--accent-blue);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .pipeline-card.active::before {
+      background: var(--accent-blue);
+    }
+
+    .pipeline-card-num {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pipeline-card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .pipeline-card-desc {
+      font-size: 0.94rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .pipeline-card-deliverables {
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px dashed var(--border-color);
+      display: flex;
+      gap: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       10. REAL WORK SHOWCASE (Demonstration Prototypes)
+       ========================================================================== */
+    .showcase-disclaimer {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .showcase-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    .showcase-item {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 3.5rem;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition-standard);
+      position: relative;
+    }
+
+    .showcase-item:hover {
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(69, 102, 255, 0.4);
+    }
+
+    .showcase-item:nth-child(even) {
+      grid-template-columns: 1.15fr 1fr;
+    }
+    .showcase-item:nth-child(even) .showcase-info {
+      order: 2;
+    }
+    .showcase-item:nth-child(even) .showcase-visual {
+      order: 1;
+    }
+
+    .showcase-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--accent-blue);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .showcase-name {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: var(--text-primary);
+    }
+
+    .showcase-challenge-box {
+      background: var(--bg-base);
+      border-left: 2px solid var(--text-primary);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    .showcase-challenge-box h4 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      margin-bottom: 0.35rem;
+    }
+
+    .showcase-solution-desc {
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .showcase-tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Interactive Miniatures within Showcase */
+    .miniature-container {
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .miniature-chrome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 1rem;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+    }
+
+    .miniature-dots {
+      display: flex;
+      gap: 5px;
+    }
+    .miniature-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border-color);
+    }
+
+    .miniature-content {
+      padding: 1.5rem;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Miniature 1: RAG Assistant Simulator */
+    .rag-prompt-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .rag-vector-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+    .rag-vector-meter {
+      height: 4px;
+      background: var(--border-color);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .rag-vector-fill {
+      height: 100%;
+      width: 98.4%;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-violet));
+      animation: pulseWidth 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseWidth {
+      0% { width: 92%; }
+      100% { width: 99.4%; }
+    }
+
+    .rag-citation-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .rag-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      background: var(--accent-blue-light);
+      color: var(--accent-blue);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+    }
+
+    /* Miniature 2: Real-time Telemetry Graph */
+    .telemetry-chart-wrap {
+      width: 100%;
+      height: 160px;
+      position: relative;
+    }
+
+    #telemetry-canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .telemetry-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .telemetry-stat-cell {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      padding: 0.6rem;
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+    .telemetry-stat-cell .stat-n {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+    .telemetry-stat-cell .stat-l {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-tertiary);
+    }
+
+    /* Miniature 3: Workflow Automation Flow Graph */
+    .flow-pipeline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin: 1.5rem 0;
+    }
+
+    .flow-node {
+      width: 65px;
+      height: 65px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-primary);
+      text-align: center;
+      z-index: 2;
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition-standard);
+    }
+
+    .flow-node.active-pulse {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 16px rgba(69, 102, 255, 0.35);
+    }
+
+    .flow-wire {
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      top: 50%;
+      height: 2px;
+      background: var(--border-color);
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    .flow-packet {
+      position: absolute;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      background: var(--accent-blue);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      box-shadow: 0 0 8px var(--accent-blue);
+      animation: packetJourney 3.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    }
+
+    @keyframes packetJourney {
+      0% { left: 5%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { left: 95%; opacity: 0; }
+    }
+
+    /* ==========================================================================
+       11. DISTINCTIVE INTERACTIVE FEATURE ("What Could We Build for You?")
+       ========================================================================== */
+    .interactive-explorer-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .explorer-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 3rem;
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .explorer-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .explorer-btn {
+      text-align: left;
+      padding: 1.15rem 1.4rem;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      transition: var(--transition-standard);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .explorer-btn:hover {
+      border-color: var(--accent-blue);
+      transform: translateX(3px);
+    }
+
+    .explorer-btn.active {
+      background: #101114;
+      border-color: #101114;
+      color: #FFFFFF;
+      box-shadow: 0 8px 24px rgba(16, 17, 20, 0.15);
+    }
+
+    .explorer-btn-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+    }
+
+    .explorer-btn.active .explorer-btn-tag {
+      color: var(--accent-cyan);
+    }
+
+    .explorer-btn-title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: inherit;
+    }
+
+    .explorer-display {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .explorer-display-header {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .explorer-display-meta {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--accent-blue);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .explorer-display-heading {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .explorer-display-body {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+
+    .explorer-deliverables-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .deliverable-box {
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+    }
+
+    .deliverable-num {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent-blue);
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .deliverable-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .explorer-display-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1.5rem;
+      margin-top: auto;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .explorer-timeline {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ==========================================================================
+       12. TRUST AND ENGINEERING PRINCIPLES
+       ========================================================================== */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .principle-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: var(--transition-standard);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .principle-card:hover {
+      border-color: var(--text-primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .principle-index {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .principle-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      transition: var(--transition-standard);
+    }
+
+    .principle-card:hover .principle-icon-wrap {
+      background: var(--accent-blue);
+      color: #FFFFFF;
+      border-color: var(--accent-blue);
+    }
+
+    .principle-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .principle-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       13. FINAL CALL TO ACTION (Distinctive Closing)
+       ========================================================================== */
+    .cta-card {
+      background: #101114;
+      border-radius: var(--radius-lg);
+      padding: 5.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border: 1px solid var(--border-dark);
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .cta-canvas-wrap {
+      position: absolute;
+      inset: 0;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    #cta-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .cta-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-cyan);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.08em;
+    }
+
+    .cta-title {
+      font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .cta-desc {
+      font-size: 1.15rem;
+      color: #A0A5B1;
+      line-height: 1.6;
+    }
+
+    .cta-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .btn-light {
+      background: #FFFFFF;
+      color: #101114;
+      font-weight: 600;
+    }
+
+    .btn-light:hover {
+      background: var(--accent-blue);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(69, 102, 255, 0.4);
+    }
+
+    .cta-email-tag {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: #8D93A1;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .cta-email-tag code {
+      color: #FFFFFF;
+      background: rgba(255,255,255,0.08);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ==========================================================================
+       14. FOOTER
+       ========================================================================== */
+    .site-footer {
+      background: var(--bg-base);
+      border-top: 1px solid var(--border-color);
+      padding: 5rem 2rem 2.5rem 2rem;
+    }
+
+    .footer-container {
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 3.5rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 320px;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+      font-weight: 600;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-blue);
+      transform: translateX(2px);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .footer-telemetry-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ==========================================================================
+       15. MODAL SYSTEM (Consultation & Case Study Exploration)
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(16, 17, 20, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-standard);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-container {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-elevated);
+      position: relative;
+      transform: translateY(20px) scale(0.98);
+      transition: var(--transition-standard);
+    }
+
+    .modal-overlay.open .modal-container {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      padding: 1.75rem 2rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #FFFFFF;
+      z-index: 10;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .modal-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: var(--transition-standard);
+    }
+
+    .modal-close-btn:hover {
+      background: #101114;
+      color: #FFFFFF;
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      transition: var(--transition-standard);
+      outline: none;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--accent-blue);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(69, 102, 255, 0.12);
+    }
+
+    .form-textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    /* ==========================================================================
+       16. RESPONSIVE MEDIA QUERIES
+       ========================================================================== */
+    @media (max-width: 1100px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: left;
+      }
+      .hero-canvas-wrap {
+        height: 440px;
+      }
+      .pipeline-system {
+        grid-template-columns: 1fr;
+      }
+      .explorer-grid {
+        grid-template-columns: 1fr;
+      }
+      .principles-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .expertise-grid {
+        grid-template-columns: 1fr;
+      }
+      .showcase-item, .showcase-item:nth-child(even) {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+      }
+      .showcase-item:nth-child(even) .showcase-info {
+        order: 1;
+      }
+      .showcase-item:nth-child(even) .showcase-visual {
+        order: 2;
+      }
+      .nav-links, .status-indicator {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: flex;
+      }
+      .hero-telemetry {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .section-wrap {
+        padding: 5rem 1.25rem;
+      }
+      .hero-section {
+        padding: 7rem 1.25rem 3rem 1.25rem;
+      }
+      .hero-canvas-wrap {
+        height: 340px;
+      }
+      .principles-grid {
+        grid-template-columns: 1fr;
+      }
+      .explorer-deliverables-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* Accessibility / Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      #cursor-dot, #cursor-ring {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-tech-grid">
+
+  <!-- ========================================================================
+       CUSTOM CURSOR
+       ======================================================================== -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ========================================================================
+       PRELOADER (Initializing Intelligence)
+       ======================================================================== -->
+  <aside id="preloader" aria-label="Loading animation">
+    <div class="preloader-core">
+      <svg class="preloader-svg" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" stroke="#E3E6ED" stroke-width="1.5" />
+        <polygon points="50,15 85,32.5 85,67.5 50,85 15,67.5 15,32.5" stroke="#4566FF" stroke-width="1.5" stroke-dasharray="8 6" />
+        <circle cx="50" cy="50" r="10" fill="#4566FF" opacity="0.8" />
+        <circle cx="50" cy="50" r="22" stroke="#8765FF" stroke-width="1" stroke-dasharray="4 4" />
+      </svg>
+    </div>
+    <div class="preloader-bar-wrap">
+      <div id="preloader-fill" class="preloader-bar-fill"></div>
+    </div>
+    <div class="preloader-label">
+      <span id="preloader-pct">00%</span>
+      <span>//</span>
+      <span>INITIALIZING INTELLIGENCE</span>
+    </div>
+    <button id="preloader-skip" class="preloader-skip" aria-label="Skip initialization">SKIP INTRO [ESC]</button>
+  </aside>
+
+  <!-- ========================================================================
+       STICKY NAVIGATION
+       ======================================================================== -->
+  <header id="site-header" class="site-header">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo" aria-label="RHEVIX Homepage">
+        <div class="brand-mark">
+          <svg viewBox="0 0 32 32" fill="none" width="28" height="28">
+            <polygon points="16,3 29,10.5 29,21.5 16,29 3,21.5 3,10.5" stroke="#101114" stroke-width="2.2" />
+            <polygon points="16,9 23,13.5 23,18.5 16,23 9,18.5 9,13.5" fill="#4566FF" />
+            <circle cx="16" cy="16" r="2.5" fill="#FFFFFF" />
+          </svg>
+        </div>
+        <span>RHEVIX</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li class="nav-item"><a href="#expertise">Services</a></li>
+          <li class="nav-item"><a href="#process">Solutions</a></li>
+          <li class="nav-item"><a href="#showcase">Our Work</a></li>
+          <li class="nav-item"><a href="#interactive-explorer">Architecture Estimator</a></li>
+          <li class="nav-item"><a href="#principles">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="status-indicator">
+          <div class="pulse-dot"></div>
+          <span>CORE: ONLINE</span>
+        </div>
+        <button id="open-consult-btn" class="btn btn-primary btn-magnetic" aria-label="Open contact dialogue">
+          <span>Let's Talk</span>
+          <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+        </button>
+        <button id="mobile-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <i data-lucide="menu" style="width: 20px; height: 20px;"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer-backdrop" class="mobile-drawer-backdrop"></div>
+  <aside id="mobile-drawer" class="mobile-drawer" aria-label="Mobile Navigation">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
+      <div class="brand-logo">
+        <div class="brand-mark">
+          <svg viewBox="0 0 32 32" fill="none" width="26" height="26">
+            <polygon points="16,3 29,10.5 29,21.5 16,29 3,21.5 3,10.5" stroke="#101114" stroke-width="2.2" />
+            <polygon points="16,9 23,13.5 23,18.5 16,23 9,18.5 9,13.5" fill="#4566FF" />
+          </svg>
+        </div>
+        <span>RHEVIX</span>
+      </div>
+      <button id="mobile-close-btn" class="modal-close-btn" aria-label="Close menu">
+        <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+      </button>
+    </div>
+    <nav style="display: flex; flex-direction: column; gap: 1.5rem; font-family: var(--font-heading); font-size: 1.4rem; font-weight: 600;">
+      <a href="#expertise" class="mobile-nav-link">Services</a>
+      <a href="#process" class="mobile-nav-link">Solutions</a>
+      <a href="#showcase" class="mobile-nav-link">Our Work</a>
+      <a href="#interactive-explorer" class="mobile-nav-link">Architecture Estimator</a>
+      <a href="#principles" class="mobile-nav-link">About</a>
+    </nav>
+    <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+      <button class="btn btn-primary" style="width: 100%;" onclick="openConsultationModal('General Inquiry'); closeMobileMenu();">
+        <span>Start a Project</span>
+        <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+      </button>
+      <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary); margin-top: 1rem; text-align: center;">
+        AI · DATA · ENGINEERING
+      </p>
+    </div>
+  </aside>
+
+  <main>
+    <!-- ========================================================================
+         HERO SECTION
+         ======================================================================== -->
+    <section id="hero" class="hero-section">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="hero-badge-tag">STATUS // OPERATIONAL</span>
+            <div class="hero-badge-divider"></div>
+            <span class="hero-badge-text">AI · DATA · ENGINEERING</span>
+          </div>
+
+          <h1 class="hero-title">
+            Intelligence, <br>
+            <span class="gradient-text">Engineered for</span> <br>
+            What's Next.
+          </h1>
+
+          <p class="hero-subtitle">
+            RHEVIX builds intelligent software, AI-powered systems, and modern data platforms that help businesses turn complex challenges into meaningful progress.
+          </p>
+
+          <div class="hero-cta-group">
+            <button class="btn btn-primary btn-magnetic" onclick="openConsultationModal('Project Consultation')">
+              <span>Start a Project ↗</span>
+            </button>
+            <a href="#showcase" class="btn btn-secondary btn-magnetic">
+              <span>Explore Our Work ↓</span>
+            </a>
+          </div>
+
+          <div class="hero-telemetry">
+            <div class="telemetry-item">
+              <span class="telemetry-val">&lt; 18ms</span>
+              <span class="telemetry-lbl">Inference Latency Target</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-val">100%</span>
+              <span class="telemetry-lbl">Verifiable Lineage</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-val">Zero-Trust</span>
+              <span class="telemetry-lbl">Agentic Security</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Interactive Hero Intelligence Core -->
+        <div class="hero-canvas-wrap" id="hero-canvas-container">
+          <div class="hero-canvas-frame">
+            <div class="frame-corner frame-corner-tl"></div>
+            <div class="frame-corner frame-corner-tr"></div>
+            <div class="frame-corner frame-corner-bl"></div>
+            <div class="frame-corner frame-corner-br"></div>
+          </div>
+          <canvas id="hero-canvas" aria-label="Interactive 3D Three.js Intelligence Core"></canvas>
+          <div class="hero-spec-tag">CORE // THREE.JS DYNAMIC LATTICE</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TELEMETRY MARQUEE BAR
+         ======================================================================== -->
+    <div class="marquee-bar" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item"><span class="marquee-dot"></span> AUTONOMOUS AI AGENTS</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> HYBRID VECTOR RETRIEVAL</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> REAL-TIME STREAMING LAKEHOUSE</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> TEMPORAL DISTRIBUTED WORKFLOWS</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> ZERO-DOWNTIME MICROSERVICES</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> CLOUD-NATIVE KUBERNETES</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> DETERMINISTIC CI/CD HARNESS</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> AUTONOMOUS AI AGENTS</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> HYBRID VECTOR RETRIEVAL</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> REAL-TIME STREAMING LAKEHOUSE</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> TEMPORAL DISTRIBUTED WORKFLOWS</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         INTERACTIVE EXPERTISE SECTION
+         ======================================================================== -->
+    <section id="expertise" class="section-wrap">
+      <div class="section-container">
+        <header class="section-header">
+          <div class="section-label">01 // CORE COMPETENCIES</div>
+          <h2 class="section-title">Complexity, Meet Clarity.</h2>
+          <p class="section-desc">
+            We combine intelligent systems, reliable engineering, and actionable data to solve problems that matter.
+          </p>
+        </header>
+
+        <div class="expertise-grid">
+          <!-- Module 1: AI & Intelligent Systems -->
+          <article class="expertise-card" data-module="ai">
+            <div class="expertise-card-top">
+              <div class="expertise-canvas-container" id="container-ai">
+                <canvas id="canvas-ai" aria-label="Rotating Neural Crystal Sphere"></canvas>
+              </div>
+              <span class="expertise-index">SYS_01</span>
+            </div>
+            <h3 class="expertise-title">AI & Intelligent Systems</h3>
+            <p class="expertise-desc">
+              AI agents, retrieval-augmented generation (RAG), machine learning pipelines, and intelligent workflow automation designed with explainable guardrails and deterministic fallbacks.
+            </p>
+            <div class="expertise-tags">
+              <span class="tag-pill">Autonomous Agents</span>
+              <span class="tag-pill">Multi-Agent RAG</span>
+              <span class="tag-pill">Fine-Tuned LLMs</span>
+              <span class="tag-pill">Guardrail Architecture</span>
+            </div>
+          </article>
+
+          <!-- Module 2: Data Engineering & Intelligence -->
+          <article class="expertise-card" data-module="data">
+            <div class="expertise-card-top">
+              <div class="expertise-canvas-container" id="container-data">
+                <canvas id="canvas-data" aria-label="Geometric Data Stream Lattice"></canvas>
+              </div>
+              <span class="expertise-index">SYS_02</span>
+            </div>
+            <h3 class="expertise-title">Data Engineering & Intelligence</h3>
+            <p class="expertise-desc">
+              High-throughput data pipelines, analytics lakehouses, automated anomaly detection, and business intelligence providing sub-second query speeds across distributed operational assets.
+            </p>
+            <div class="expertise-tags">
+              <span class="tag-pill">Streaming ETL</span>
+              <span class="tag-pill">Sub-Second OLAP</span>
+              <span class="tag-pill">Data Lineage</span>
+              <span class="tag-pill">Real-Time BI</span>
+            </div>
+          </article>
+
+          <!-- Module 3: Software & Product Engineering -->
+          <article class="expertise-card" data-module="software">
+            <div class="expertise-card-top">
+              <div class="expertise-canvas-container" id="container-software">
+                <canvas id="canvas-software" aria-label="Wireframe Modular Architecture"></canvas>
+              </div>
+              <span class="expertise-index">SYS_03</span>
+            </div>
+            <h3 class="expertise-title">Software & Product Engineering</h3>
+            <p class="expertise-desc">
+              High-concurrency web applications, microservices, enterprise APIs, SaaS platforms, and rigorous application modernization with guaranteed zero-downtime cutovers.
+            </p>
+            <div class="expertise-tags">
+              <span class="tag-pill">Distributed APIs</span>
+              <span class="tag-pill">SaaS Engineering</span>
+              <span class="tag-pill">Legacy Modernization</span>
+              <span class="tag-pill">Event-Driven Architecture</span>
+            </div>
+          </article>
+
+          <!-- Module 4: Cloud & Infrastructure -->
+          <article class="expertise-card" data-module="cloud">
+            <div class="expertise-card-top">
+              <div class="expertise-canvas-container" id="container-cloud">
+                <canvas id="canvas-cloud" aria-label="Orbital Cloud Constellation"></canvas>
+              </div>
+              <span class="expertise-index">SYS_04</span>
+            </div>
+            <h3 class="expertise-title">Cloud & Infrastructure</h3>
+            <p class="expertise-desc">
+              Cloud-native topology, automated infrastructure as code (IaC), zero-trust security postures, full-stack observability, and multi-region resilience for mission-critical workloads.
+            </p>
+            <div class="expertise-tags">
+              <span class="tag-pill">Kubernetes Orchestration</span>
+              <span class="tag-pill">Terraform / GitOps</span>
+              <span class="tag-pill">eBPF Telemetry</span>
+              <span class="tag-pill">Zero-Trust Posture</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SIGNATURE INTERACTIVE SECTION — "FROM SIGNAL TO SOLUTION"
+         ======================================================================== -->
+    <section id="process" class="section-wrap pipeline-section">
+      <div class="section-container">
+        <header class="section-header">
+          <div class="section-label">02 // METHODOLOGY</div>
+          <h2 class="section-title">From Signal to Solution.</h2>
+          <p class="section-desc">
+            A deterministic engineering pipeline that converts unstructured business friction into resilient production architecture.
+          </p>
+        </header>
+
+        <div class="pipeline-system">
+          <!-- Visual Panel with Dynamic Canvas Visualization -->
+          <div class="pipeline-visual-panel">
+            <div class="pipeline-stage-indicator">
+              <span id="pipeline-active-badge">CURRENT STAGE: 01 — DISCOVERY</span>
+              <span id="pipeline-telemetry-tag">SAMPLING RATE: 120Hz</span>
+            </div>
+
+            <div class="signal-canvas-wrap">
+              <canvas id="signal-canvas" aria-label="Visual Signal Transformation Simulator"></canvas>
+            </div>
+
+            <div class="signal-readout">
+              <span>SYSTEM STATE: <strong id="signal-state-text" class="signal-metric">DISCOVERING ATTRIBUTES</strong></span>
+              <span>CONFIDENCE: <strong id="signal-conf-text" class="signal-metric">94.8%</strong></span>
+            </div>
+          </div>
+
+          <!-- Interactive Clickable / Scrollable Stepper -->
+          <div class="pipeline-steps-panel">
+            <div class="pipeline-card active" data-step="0" tabindex="0" role="button" aria-pressed="true">
+              <div class="pipeline-card-num">
+                <span>01</span>
+                <span>//</span>
+                <span>DISCOVER</span>
+              </div>
+              <h3 class="pipeline-card-title">UNDERSTAND</h3>
+              <p class="pipeline-card-desc">
+                Discover the problem and identify opportunities. We audit data flows, profile latency constraints, and establish verified threat models before writing production code.
+              </p>
+              <div class="pipeline-card-deliverables">
+                <span>✓ Technical Feasibility Matrix</span>
+                <span>✓ Data Architecture Blueprint</span>
+              </div>
+            </div>
+
+            <div class="pipeline-card" data-step="1" tabindex="0" role="button" aria-pressed="false">
+              <div class="pipeline-card-num">
+                <span>02</span>
+                <span>//</span>
+                <span>SYNTHESIZE</span>
+              </div>
+              <h3 class="pipeline-card-title">ENGINEER</h3>
+              <p class="pipeline-card-desc">
+                Design, develop, integrate, and test the solution. We build resilient multi-agent harnesses, low-latency data pipelines, and rigorous automated evaluation benchmarks.
+              </p>
+              <div class="pipeline-card-deliverables">
+                <span>✓ Production-Grade Codebase</span>
+                <span>✓ Automated Test & Eval Harness</span>
+              </div>
+            </div>
+
+            <div class="pipeline-card" data-step="2" tabindex="0" role="button" aria-pressed="false">
+              <div class="pipeline-card-num">
+                <span>03</span>
+                <span>//</span>
+                <span>ACCELERATE</span>
+              </div>
+              <h3 class="pipeline-card-title">TRANSFORM</h3>
+              <p class="pipeline-card-desc">
+                Deploy, measure outcomes, and continuously improve. We execute zero-downtime cutovers, establish real-time drift telemetry, and fine-tune operational performance.
+              </p>
+              <div class="pipeline-card-deliverables">
+                <span>✓ Continuous Telemetry Dashboard</span>
+                <span>✓ Knowledge Transfer & Runbooks</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         REAL WORK SHOWCASE (Demonstration Prototypes)
+         ======================================================================== -->
+    <section id="showcase" class="section-wrap">
+      <div class="section-container">
+        <header class="section-header">
+          <div class="section-label">03 // DEMONSTRATION LAB</div>
+          <h2 class="section-title">Proof Is Better Than Promises.</h2>
+          <p class="section-desc">
+            Explore editorial architectural prototypes engineered to illustrate how we address complex enterprise bottlenecks.
+          </p>
+        </header>
+
+        <div class="showcase-disclaimer">
+          <i data-lucide="info" style="width: 15px; height: 15px; color: var(--accent-blue);"></i>
+          <span>LAB NOTICE: The following three systems are verified demonstration architectures and functional prototypes.</span>
+        </div>
+
+        <div class="showcase-grid">
+          <!-- Demonstration Project 1 -->
+          <article class="showcase-item">
+            <div class="showcase-info">
+              <div class="showcase-meta">
+                <span>DEMO ARCHITECTURE // 01</span>
+                <span>•</span>
+                <span>ENTERPRISE AI</span>
+              </div>
+              <h3 class="showcase-name">AI-Powered Knowledge Assistant</h3>
+
+              <div class="showcase-challenge-box">
+                <h4>Problem Statement</h4>
+                <p style="font-size: 0.92rem; color: var(--text-primary);">
+                  Internal teams lose over 4 hours daily searching across fragmented documentation silos, regulatory filings, and legacy ticket histories.
+                </p>
+              </div>
+
+              <p class="showcase-solution-desc">
+                A hybrid-retrieval multi-agent RAG system featuring deterministic citation anchoring, strict role-based document access, and sub-second query response streaming.
+              </p>
+
+              <div class="showcase-tech-stack">
+                <span class="tag-pill">Hybrid Vector Search</span>
+                <span class="tag-pill">FastAPI</span>
+                <span class="tag-pill">Qdrant Vector DB</span>
+                <span class="tag-pill">Azure OpenAI</span>
+                <span class="tag-pill">Redis Cache</span>
+              </div>
+
+              <button class="btn btn-secondary" onclick="openProjectModal('rag')">
+                <span>Explore Architecture Specs ↗</span>
+              </button>
+            </div>
+
+            <!-- Interactive Miniature 1: RAG Query Simulator -->
+            <div class="showcase-visual">
+              <div class="miniature-container">
+                <div class="miniature-chrome">
+                  <div class="miniature-dots">
+                    <div class="miniature-dot"></div>
+                    <div class="miniature-dot"></div>
+                    <div class="miniature-dot"></div>
+                  </div>
+                  <span>LIVE REASONING // RAG RUNTIME</span>
+                  <span>99.4% MATCH</span>
+                </div>
+                <div class="miniature-content">
+                  <div class="rag-prompt-box">
+                    <i data-lucide="sparkles" style="width: 16px; height: 16px; color: var(--accent-blue);"></i>
+                    <span>"Compare vendor liability cap in Q3 contracts vs ISO-27001 policy"</span>
+                  </div>
+                  <div class="rag-vector-bar">
+                    <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">
+                      <span>VECTOR EMBEDDING MATCH</span>
+                      <span style="color: var(--accent-blue); font-weight: 600;">SIMILARITY: 0.984</span>
+                    </div>
+                    <div class="rag-vector-meter">
+                      <div class="rag-vector-fill"></div>
+                    </div>
+                  </div>
+                  <div class="rag-citation-box">
+                    <p>
+                      "Under Section 8.4 of the Master Services Agreement, liability is capped at 1.5x annual fees <span class="rag-badge">[DOC_MSA_8.4]</span>, fully satisfying ISO-27001 Clause A.15 supplier controls."
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Demonstration Project 2 -->
+          <article class="showcase-item">
+            <div class="showcase-info">
+              <div class="showcase-meta">
+                <span>DEMO ARCHITECTURE // 02</span>
+                <span>•</span>
+                <span>STREAMING DATA</span>
+              </div>
+              <h3 class="showcase-name">Intelligent Business Analytics Dashboard</h3>
+
+              <div class="showcase-challenge-box">
+                <h4>Problem Statement</h4>
+                <p style="font-size: 0.92rem; color: var(--text-primary);">
+                  Conflicting operational data across 12 legacy silos caused 36-hour reporting lags and frequent contradictory inventory KPIs.
+                </p>
+              </div>
+
+              <p class="showcase-solution-desc">
+                An event-driven streaming lakehouse coupled with ClickHouse OLAP tables and automated anomaly detection to deliver real-time operational telemetry.
+              </p>
+
+              <div class="showcase-tech-stack">
+                <span class="tag-pill">Apache Kafka</span>
+                <span class="tag-pill">ClickHouse</span>
+                <span class="tag-pill">dbt Core</span>
+                <span class="tag-pill">DuckDB</span>
+                <span class="tag-pill">Next.js UI</span>
+              </div>
+
+              <button class="btn btn-secondary" onclick="openProjectModal('analytics')">
+                <span>Explore Architecture Specs ↗</span>
+              </button>
+            </div>
+
+            <!-- Interactive Miniature 2: Live Streaming Waveform -->
+            <div class="showcase-visual">
+              <div class="miniature-container">
+                <div class="miniature-chrome">
+                  <div class="miniature-dots">
+                    <div class="miniature-dot"></div>
+                    <div class="miniature-dot"></div>
+                    <div class="miniature-dot"></div>
+                  </div>
+                  <span>STREAMING INGESTION // KAFKA -> CLICKHOUSE</span>
+                  <span style="color: var(--accent-emerald);">LIVE (120 FPS)</span>
+                </div>
+                <div class="miniature-content">
+                  <div class="telemetry-chart-wrap">
+                    <canvas id="telemetry-canvas" aria-label="Real-time Streaming Analytics Chart"></canvas>
+                  </div>
+                  <div class="telemetry-stats-bar">
+                    <div class="telemetry-stat-cell">
+                      <div class="stat-n" id="stat-events">142,890</div>
+                      <div class="stat-l">EVENTS / SEC</div>
+                    </div>
+                    <div class="telemetry-stat-cell">
+                      <div class="stat-n">14ms</div>
+                      <div class="stat-l">P99 LATENCY</div>
+                    </div>
+                    <div class="telemetry-stat-cell">
+                      <div class="stat-n" style="color: var(--accent-emerald);">0.00%</div>
+                      <div class="stat-l">SCHEMA DRIFT</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Demonstration Project 3 -->
+          <article class="showcase-item">
+            <div class="showcase-info">
+              <div class="showcase-meta">
+                <span>DEMO ARCHITECTURE // 03</span>
+                <span>•</span>
+                <span>DISTRIBUTED SYSTEMS</span>
+              </div>
+              <h3 class="showcase-name">Workflow Automation Platform</h3>
+
+              <div class="showcase-challenge-box">
+                <h4>Problem Statement</h4>
+                <p style="font-size: 0.92rem; color: var(--text-primary);">
+                  Manual financial reconciliation across disparate banking APIs created human error bottlenecks and compliance audit exposures.
+                </p>
+              </div>
+
+              <p class="showcase-solution-desc">
+                A fault-tolerant orchestration platform powered by Temporal that coordinates multi-system payouts, automatic retries, and human-in-the-loop validation checkpoints.
+              </p>
+
+              <div class="showcase-tech-stack">
+                <span class="tag-pill">Temporal.io</span>
+                <span class="tag-pill">TypeScript</span>
+                <span class="tag-pill">Go Microservices</span>
+                <span class="tag-pill">PostgreSQL</span>
+                <span class="tag-pill">Docker</span>
+              </div>
+
+              <button class="btn btn-secondary" onclick="openProjectModal('workflow')">
+                <span>Explore Architecture Specs ↗</span>
+              </button>
+            </div>
+
+            <!-- Interactive Miniature 3: Visual Workflow Graph -->
+            <div class="showcase-visual">
+              <div class="miniature-container">
+                <div class="miniature-chrome">
+                  <div class="miniature-dots">
+                    <div class="miniature-dot"></div>
+                    <div class="miniature-dot"></div>
+                    <div class="miniature-dot"></div>
+                  </div>
+                  <span>EVENT ORCHESTRATION PIPELINE</span>
+                  <span style="color: var(--accent-blue);">STATE: IDLE / HEALTHY</span>
+                </div>
+                <div class="miniature-content">
+                  <div class="flow-pipeline">
+                    <div class="flow-wire">
+                      <div class="flow-packet"></div>
+                    </div>
+                    <div class="flow-node active-pulse">
+                      <i data-lucide="zap" style="width: 16px; height: 16px; margin-bottom: 3px; color: var(--accent-blue);"></i>
+                      <span>WEBHOOK</span>
+                    </div>
+                    <div class="flow-node">
+                      <i data-lucide="check-circle" style="width: 16px; height: 16px; margin-bottom: 3px;"></i>
+                      <span>VALIDATE</span>
+                    </div>
+                    <div class="flow-node">
+                      <i data-lucide="cpu" style="width: 16px; height: 16px; margin-bottom: 3px; color: var(--accent-violet);"></i>
+                      <span>ENRICH</span>
+                    </div>
+                    <div class="flow-node">
+                      <i data-lucide="user-check" style="width: 16px; height: 16px; margin-bottom: 3px;"></i>
+                      <span>APPROVAL</span>
+                    </div>
+                    <div class="flow-node">
+                      <i data-lucide="database" style="width: 16px; height: 16px; margin-bottom: 3px; color: var(--accent-emerald);"></i>
+                      <span>COMMIT</span>
+                    </div>
+                  </div>
+                  <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-tertiary); display: flex; justify-content: space-between; border-top: 1px dashed var(--border-color); padding-top: 0.75rem;">
+                    <span>FAULT TOLERANCE: RETRY × 5</span>
+                    <span>AUDIT TRAIL: IMMUTABLE LOG</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         DISTINCTIVE INTERACTIVE FEATURE ("What Could We Build for You?")
+         ======================================================================== -->
+    <section id="interactive-explorer" class="section-wrap interactive-explorer-section">
+      <div class="section-container">
+        <header class="section-header">
+          <div class="section-label">04 // ARCHITECTURAL EXPLORER</div>
+          <h2 class="section-title">What Could We Build for You?</h2>
+          <p class="section-desc">
+            Select a critical technical objective to explore our recommended architectural pattern, milestones, and deliverables.
+          </p>
+        </header>
+
+        <div class="explorer-grid">
+          <!-- Selection Column -->
+          <div class="explorer-options" role="tablist" aria-label="Engineering Challenges">
+            <button class="explorer-btn active" data-challenge="workflow" role="tab" aria-selected="true">
+              <span class="explorer-btn-tag">OBJECTIVE 01</span>
+              <span class="explorer-btn-title">Automate a repetitive workflow</span>
+            </button>
+            <button class="explorer-btn" data-challenge="data" role="tab" aria-selected="false">
+              <span class="explorer-btn-tag">OBJECTIVE 02</span>
+              <span class="explorer-btn-title">Make business data more useful</span>
+            </button>
+            <button class="explorer-btn" data-challenge="ai" role="tab" aria-selected="false">
+              <span class="explorer-btn-tag">OBJECTIVE 03</span>
+              <span class="explorer-btn-title">Build an AI-powered product</span>
+            </button>
+            <button class="explorer-btn" data-challenge="modernize" role="tab" aria-selected="false">
+              <span class="explorer-btn-tag">OBJECTIVE 04</span>
+              <span class="explorer-btn-title">Modernize an existing application</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Display Panel -->
+          <div class="explorer-display">
+            <div>
+              <div class="explorer-display-header">
+                <div id="explorer-badge" class="explorer-display-meta">RECOMMENDED PATTERN // EVENT ORCHESTRATION</div>
+                <h3 id="explorer-title" class="explorer-display-heading">Automated Enterprise Workflow Engine</h3>
+                <p id="explorer-desc" class="explorer-display-body">
+                  Eliminate brittle glue scripts and repetitive manual reconciliations. We build resilient event-driven orchestration pipelines with human approval gates, replayable event logs, and automatic transaction rollbacks.
+                </p>
+              </div>
+
+              <div class="explorer-deliverables-grid">
+                <div class="deliverable-box">
+                  <div class="deliverable-num">DELIVERABLE 01</div>
+                  <div id="deliv-1" class="deliverable-text">Architecture Specification & Threat Model</div>
+                </div>
+                <div class="deliverable-box">
+                  <div class="deliverable-num">DELIVERABLE 02</div>
+                  <div id="deliv-2" class="deliverable-text">Event-Driven State Engine with Retry Queues</div>
+                </div>
+                <div class="deliverable-box">
+                  <div class="deliverable-num">DELIVERABLE 03</div>
+                  <div id="deliv-3" class="deliverable-text">Human-in-the-Loop Admin Review Console</div>
+                </div>
+                <div class="deliverable-box">
+                  <div class="deliverable-num">DELIVERABLE 04</div>
+                  <div id="deliv-4" class="deliverable-text">Real-Time Observability & OpenTelemetry Metrics</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="explorer-display-footer">
+              <div class="explorer-timeline">
+                <i data-lucide="clock" style="width: 16px; height: 16px; color: var(--accent-blue);"></i>
+                <span id="explorer-timeline-text">Target Timeline: Discovery 2w · Prototype 4w · Production 8w</span>
+              </div>
+              <button id="explorer-cta-btn" class="btn btn-primary" onclick="openConsultationWithChallenge()">
+                <span>Discuss This Challenge ↗</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TRUST AND ENGINEERING PRINCIPLES
+         ======================================================================== -->
+    <section id="principles" class="section-wrap">
+      <div class="section-container">
+        <header class="section-header">
+          <div class="section-label">05 // ENGINEERING RIGOR</div>
+          <h2 class="section-title">Built With Intelligence. Delivered With Discipline.</h2>
+          <p class="section-desc">
+            Enterprise systems demand more than proof-of-concept prototypes. We adhere to rigorous engineering standards from day zero.
+          </p>
+        </header>
+
+        <div class="principles-grid">
+          <!-- Principle 1 -->
+          <article class="principle-card">
+            <div class="principle-index">
+              <span>RULE // 01</span>
+              <i data-lucide="shield-check" style="width: 16px; height: 16px; color: var(--accent-blue);"></i>
+            </div>
+            <div class="principle-icon-wrap">
+              <i data-lucide="lock" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3 class="principle-name">Security by Design</h3>
+            <p class="principle-desc">
+              Zero-trust architecture, encrypted data transit & storage at rest, defense-in-depth isolation, and strict role-based governance baked into every API contract.
+            </p>
+          </article>
+
+          <!-- Principle 2 -->
+          <article class="principle-card">
+            <div class="principle-index">
+              <span>RULE // 02</span>
+              <i data-lucide="check-check" style="width: 16px; height: 16px; color: var(--accent-blue);"></i>
+            </div>
+            <div class="principle-icon-wrap">
+              <i data-lucide="cpu" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3 class="principle-name">Reliable Engineering</h3>
+            <p class="principle-desc">
+              Deterministic testing, reproducible CI/CD pipelines, chaos engineering resilience, and observable telemetry at every layer of the compute stack.
+            </p>
+          </article>
+
+          <!-- Principle 3 -->
+          <article class="principle-card">
+            <div class="principle-index">
+              <span>RULE // 03</span>
+              <i data-lucide="users" style="width: 16px; height: 16px; color: var(--accent-blue);"></i>
+            </div>
+            <div class="principle-icon-wrap">
+              <i data-lucide="sparkles" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3 class="principle-name">Human-Centered AI</h3>
+            <p class="principle-desc">
+              Explainable model outputs, human-in-the-loop validation checkpoints, transparent guardrails, and deterministic fallback behaviors that prevent hallucination hazards.
+            </p>
+          </article>
+
+          <!-- Principle 4 -->
+          <article class="principle-card">
+            <div class="principle-index">
+              <span>RULE // 04</span>
+              <i data-lucide="activity" style="width: 16px; height: 16px; color: var(--accent-blue);"></i>
+            </div>
+            <div class="principle-icon-wrap">
+              <i data-lucide="git-branch" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3 class="principle-name">Continuous Improvement</h3>
+            <p class="principle-desc">
+              Automated feedback loops, semantic drift monitoring, continuous integration, and proactive performance benchmarking across shifting real-world data distributions.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         FINAL CALL TO ACTION
+         ======================================================================== -->
+    <section id="contact-cta" class="section-wrap" style="padding-top: 2rem;">
+      <div class="section-container">
+        <div class="cta-card">
+          <div class="cta-canvas-wrap">
+            <canvas id="cta-canvas" aria-label="Subtle Background Polyhedron"></canvas>
+          </div>
+          <div class="cta-content">
+            <span class="cta-badge">LET'S BUILD WHAT'S NEXT</span>
+            <h2 class="cta-title">
+              Have a Complex Problem?<br>
+              Let's Engineer the Solution.
+            </h2>
+            <p class="cta-desc">
+              Tell us what you're trying to achieve. We'll explore the challenge, identify practical opportunities, and determine the right next step.
+            </p>
+            <div class="cta-btn-group">
+              <button class="btn btn-light btn-magnetic" onclick="openConsultationModal('Project Consultation')">
+                <span>Start a Conversation ↗</span>
+              </button>
+            </div>
+            <div class="cta-email-tag">
+              <span>Direct Inquiries:</span>
+              <code>hr@rhevix.com</code>
+              <span>• Responses within 24 business hours</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <div class="brand-mark">
+              <svg viewBox="0 0 32 32" fill="none" width="28" height="28">
+                <polygon points="16,3 29,10.5 29,21.5 16,29 3,21.5 3,10.5" stroke="#101114" stroke-width="2.2" />
+                <polygon points="16,9 23,13.5 23,18.5 16,23 9,18.5 9,13.5" fill="#4566FF" />
+              </svg>
+            </div>
+            <span>RHEVIX</span>
+          </div>
+          <p class="footer-brand-desc">
+            Engineering frontier intelligence, resilient data systems, and cloud architectures for forward-looking enterprises.
+          </p>
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem;">
+            <a href="https://www.linkedin.com/company/rhevix/home/" target="_blank" rel="noopener noreferrer" class="tag-pill" aria-label="Rhevix LinkedIn Profile">
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="tag-pill" aria-label="GitHub Repository">
+              <span>GitHub</span>
+            </a>
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="tag-pill" aria-label="Twitter Profile">
+              <span>X / Twitter</span>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#hero">Overview</a></li>
+            <li><a href="#expertise">Services</a></li>
+            <li><a href="#process">Methodology</a></li>
+            <li><a href="#showcase">Our Work</a></li>
+            <li><a href="#interactive-explorer">Architecture Estimator</a></li>
+            <li><a href="#principles">Engineering Principles</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Capabilities</h4>
+          <ul class="footer-links">
+            <li><a href="#expertise">Autonomous AI Agents</a></li>
+            <li><a href="#expertise">Multi-Modal RAG</a></li>
+            <li><a href="#expertise">Streaming Lakehouses</a></li>
+            <li><a href="#expertise">Temporal Workflows</a></li>
+            <li><a href="#expertise">Cloud Kubernetes & IaC</a></li>
+            <li><a href="#expertise">Zero-Trust Architecture</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Offices & Inquiries</h4>
+          <ul class="footer-links">
+            <li style="color: var(--text-secondary); font-size: 0.88rem;">
+              Bangalore • Delhi • Pune • Hyderabad
+            </li>
+            <li>
+              <a href="mailto:hr@rhevix.com" style="color: var(--accent-blue); font-weight: 500;">
+                hr@rhevix.com
+              </a>
+            </li>
+            <li style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.5rem;">
+              COORDINATES: 12.9716° N, 77.5946° E
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © <span id="current-year">2026</span> RHEVIX Inc. All rights reserved. Self-contained build v6.4.
+        </div>
+        <div class="footer-telemetry-tag">
+          <div class="pulse-dot"></div>
+          <span>SYSTEM STATUS: ALL REPOSITORIES OPERATIONAL</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       MODAL: CONSULTATION & PROJECT INITIATION
+       ======================================================================== -->
+  <div id="consult-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="consult-modal-title">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="consult-modal-title" class="modal-title">Engineer What's Next</h3>
+        <button class="modal-close-btn" onclick="closeConsultationModal()" aria-label="Close dialog">
+          <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Tell us about your technical challenge. Our senior engineering leads will evaluate feasibility and respond within 24 hours.
+        </p>
+        <form id="consult-form" onsubmit="handleConsultationSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="client-name">Your Name</label>
+            <input type="text" id="client-name" class="form-input" placeholder="Alex Mercer" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="client-email">Work Email</label>
+            <input type="email" id="client-email" class="form-input" placeholder="alex@enterprise.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="client-focus">Primary Challenge Focus</label>
+            <select id="client-focus" class="form-select">
+              <option value="AI Agents & RAG Architecture">AI Agents & RAG Architecture</option>
+              <option value="Streaming Data Lakehouse & BI">Streaming Data Lakehouse & BI</option>
+              <option value="Application Modernization & Microservices">Application Modernization & Microservices</option>
+              <option value="Workflow Automation & Orchestration">Workflow Automation & Orchestration</option>
+              <option value="General Engineering Consultation">General Engineering Consultation</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="client-message">Brief Project Description</label>
+            <textarea id="client-message" class="form-textarea" placeholder="Describe the problem, current architecture limitations, and target outcomes..." required></textarea>
+          </div>
+          <button type="submit" id="submit-consult-btn" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+            <span>Transmit Inquiry ↗</span>
+          </button>
+        </form>
+        <div id="consult-success-msg" style="display: none; text-align: center; padding: 2rem 0;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--accent-blue-light); color: var(--accent-blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto;">
+            <i data-lucide="check" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Inquiry Received</h4>
+          <p style="font-size: 0.95rem; color: var(--text-secondary);">
+            Thank you. An engineering principal has received your parameters and will respond within 24 hours.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: CASE STUDY TECHNICAL ARCHITECTURE EXPLORER
+       ======================================================================== -->
+  <div id="project-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="project-modal-title" class="modal-title">Architecture Blueprint</h3>
+        <button class="modal-close-btn" onclick="closeProjectModal()" aria-label="Close dialog">
+          <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="project-modal-content">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       JAVASCRIPT: THREE.JS SCENES, GSAP, LOGIC & INTERACTION
+       ======================================================================== -->
+  <script>
+    /* ==========================================================================
+       1. GLOBAL INITIALIZATION & CHECKS
+       ========================================================================== */
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Initialize Lucide icons
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+
+    // WebGL Availability check helper
+    function isWebGLAvailable() {
+      try {
+        const canvas = document.createElement('canvas');
+        return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+      } catch (e) {
+        return false;
+      }
+    }
+
+    const hasWebGL = isWebGLAvailable();
+
+    /* ==========================================================================
+       2. SIGNATURE PRELOADER LOGIC
+       ========================================================================== */
+    const preloader = document.getElementById('preloader');
+    const preloaderFill = document.getElementById('preloader-fill');
+    const preloaderPct = document.getElementById('preloader-pct');
+    const preloaderSkip = document.getElementById('preloader-skip');
+
+    let currentProgress = 0;
+    const progressInterval = setInterval(() => {
+      currentProgress += Math.floor(Math.random() * 18) + 12;
+      if (currentProgress >= 100) {
+        currentProgress = 100;
+        clearInterval(progressInterval);
+        setTimeout(dismissPreloader, 250);
+      }
+      preloaderFill.style.width = currentProgress + '%';
+      preloaderPct.textContent = (currentProgress < 10 ? '0' : '') + currentProgress + '%';
+    }, 90);
+
+    function dismissPreloader() {
+      clearInterval(progressInterval);
+      if (preloader) {
+        preloader.classList.add('loaded');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+          if (typeof playHeroEntrance === 'function') {
+            playHeroEntrance();
+          }
+          if (typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.refresh();
+          }
+        }, 300);
+      }
+    }
+
+    preloaderSkip.addEventListener('click', dismissPreloader);
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !preloader.classList.contains('loaded')) {
+        dismissPreloader();
+      }
+    });
+
+    /* ==========================================================================
+       3. CUSTOM CURSOR SYSTEM (Desktop Lerping)
+       ========================================================================== */
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (cursorDot) {
+        cursorDot.style.left = mouseX + 'px';
+        cursorDot.style.top = mouseY + 'px';
+      }
+    });
+
+    function updateCursorRing() {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      if (cursorRing) {
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top = ringY + 'px';
+      }
+      requestAnimationFrame(updateCursorRing);
+    }
+    requestAnimationFrame(updateCursorRing);
+
+    // Interactive Hover States for Cursor
+    document.querySelectorAll('a, button, .pipeline-card, .explorer-btn, .expertise-card, input, textarea, select').forEach(el => {
+      el.addEventListener('mouseenter', () => cursorRing && cursorRing.classList.add('active'));
+      el.addEventListener('mouseleave', () => cursorRing && cursorRing.classList.remove('active'));
+    });
+
+    /* ==========================================================================
+       4. STICKY HEADER & MOBILE DRAWER
+       ========================================================================== */
+    const siteHeader = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        siteHeader.classList.add('scrolled');
+      } else {
+        siteHeader.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const mobileBackdrop = document.getElementById('mobile-drawer-backdrop');
+    const mobileClose = document.getElementById('mobile-close-btn');
+
+    function openMobileMenu() {
+      mobileDrawer.classList.add('open');
+      mobileBackdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      mobileDrawer.classList.remove('open');
+      mobileBackdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    if (mobileToggle) mobileToggle.addEventListener('click', openMobileMenu);
+    if (mobileClose) mobileClose.addEventListener('click', closeMobileMenu);
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileMenu);
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    /* ==========================================================================
+       5. HERO SECTION: 3D THREE.JS INTELLIGENCE CORE
+       ========================================================================== */
+    (function initHeroCore() {
+      const container = document.getElementById('hero-canvas-container');
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas || !container || !hasWebGL || typeof THREE === 'undefined') return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+      camera.position.z = 32;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+      scene.add(ambientLight);
+
+      const blueLight = new THREE.PointLight(0x4566ff, 3.5, 60);
+      blueLight.position.set(15, 12, 15);
+      scene.add(blueLight);
+
+      const violetLight = new THREE.PointLight(0x8765ff, 3.0, 60);
+      violetLight.position.set(-15, -12, 15);
+      scene.add(violetLight);
+
+      // Core Object Group
+      const coreGroup = new THREE.Group();
+      scene.add(coreGroup);
+
+      // 1. Central Crystalline Polyhedron (Icosahedron)
+      const icoGeometry = new THREE.IcosahedronGeometry(6.5, 1);
+      const icoMaterial = new THREE.MeshStandardMaterial({
+        color: 0x4566ff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.75,
+        roughness: 0.2,
+        metalness: 0.8
+      });
+      const icoMesh = new THREE.Mesh(icoGeometry, icoMaterial);
+      coreGroup.add(icoMesh);
+
+      // 2. Inner Glowing Core Octahedron
+      const innerGeom = new THREE.OctahedronGeometry(3.6, 0);
+      const innerMat = new THREE.MeshStandardMaterial({
+        color: 0x8765ff,
+        wireframe: false,
+        transparent: true,
+        opacity: 0.85,
+        roughness: 0.1
+      });
+      const innerMesh = new THREE.Mesh(innerGeom, innerMat);
+      coreGroup.add(innerMesh);
+
+      // 3. Neural Constellation Particle Cloud
+      const particleCount = 110;
+      const particlePositions = new Float32Array(particleCount * 3);
+      const basePositions = [];
+
+      for (let i = 0; i < particleCount; i++) {
+        const u = Math.random();
+        const v = Math.random();
+        const theta = u * 2.0 * Math.PI;
+        const phi = Math.acos(2.0 * v - 1.0);
+        const r = 9.0 + Math.random() * 4.5;
+        const sinPhi = Math.sin(phi);
+        const x = r * sinPhi * Math.cos(theta);
+        const y = r * sinPhi * Math.sin(theta);
+        const z = r * Math.cos(phi);
+
+        particlePositions[i * 3] = x;
+        particlePositions[i * 3 + 1] = y;
+        particlePositions[i * 3 + 2] = z;
+        basePositions.push(new THREE.Vector3(x, y, z));
+      }
+
+      const particleGeom = new THREE.BufferGeometry();
+      particleGeom.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+
+      const particleMat = new THREE.PointsMaterial({
+        color: 0x4566ff,
+        size: 0.45,
+        transparent: true,
+        opacity: 0.95
+      });
+      const particleCloud = new THREE.Points(particleGeom, particleMat);
+      coreGroup.add(particleCloud);
+
+      // 4. Interconnecting Neural Network Lines
+      const lineMaterial = new THREE.LineBasicMaterial({
+        color: 0x8765ff,
+        transparent: true,
+        opacity: 0.22
+      });
+
+      const lineIndices = [];
+      for (let i = 0; i < particleCount; i++) {
+        for (let j = i + 1; j < particleCount; j++) {
+          const dist = basePositions[i].distanceTo(basePositions[j]);
+          if (dist < 3.8) {
+            lineIndices.push(i, j);
+          }
+        }
+      }
+
+      const lineGeom = new THREE.BufferGeometry();
+      lineGeom.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+      lineGeom.setIndex(lineIndices);
+      const networkLines = new THREE.LineSegments(lineGeom, lineMaterial);
+      coreGroup.add(networkLines);
+
+      // 5. Outer Thin Orbital Ring
+      const ringGeom = new THREE.RingGeometry(14, 14.08, 64);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: 0x4566ff,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.45
+      });
+      const ringMesh = new THREE.Mesh(ringGeom, ringMat);
+      ringMesh.rotation.x = Math.PI / 3;
+      coreGroup.add(ringMesh);
+
+      // Pointer & Scroll Interaction
+      let targetRotX = 0;
+      let targetRotY = 0;
+      let mouseNormalizedX = 0;
+      let mouseNormalizedY = 0;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseNormalizedX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseNormalizedY = -(e.clientY / window.innerHeight) * 2 + 1;
+        targetRotY = mouseNormalizedX * 0.45;
+        targetRotX = -mouseNormalizedY * 0.45;
+      });
+
+      // Window Resize Handler
+      function onWindowResize() {
+        if (!container) return;
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      }
+      window.addEventListener('resize', onWindowResize);
+
+      // Visibility Observer to pause off-screen rendering
+      let isVisible = true;
+      const observer = new IntersectionObserver((entries) => {
+        isVisible = entries[0].isIntersecting;
+      }, { threshold: 0.1 });
+      observer.observe(container);
+
+      // Animation Loop
+      let clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        if (!isVisible) return;
+
+        const elapsedTime = clock.getElapsedTime();
+
+        // Autonomous Idle Rotation + Lerped Pointer Tracking
+        coreGroup.rotation.y += 0.0035;
+        coreGroup.rotation.x += (targetRotX - coreGroup.rotation.x) * 0.04;
+        coreGroup.rotation.z += (targetRotY - coreGroup.rotation.z) * 0.04;
+
+        innerMesh.rotation.y = -elapsedTime * 0.4;
+        innerMesh.rotation.x = elapsedTime * 0.25;
+        ringMesh.rotation.z = elapsedTime * 0.1;
+
+        // Subtle Breathing / Pulse Scale
+        const scaleVal = 1.0 + Math.sin(elapsedTime * 1.5) * 0.025;
+        icoMesh.scale.set(scaleVal, scaleVal, scaleVal);
+
+        renderer.render(scene, camera);
+      }
+      animate();
+    })();
+
+    /* ==========================================================================
+       6. 3D EXPERTISE ICONS (4 Modular Scenes with Pause on Off-Screen)
+       ========================================================================== */
+    function createModuleScene(canvasId, containerId, buildSceneFn) {
+      const canvas = document.getElementById(canvasId);
+      const container = document.getElementById(containerId);
+      if (!canvas || !container || !hasWebGL || typeof THREE === 'undefined') return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+      camera.position.z = 18;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const amb = new THREE.AmbientLight(0xffffff, 0.9);
+      scene.add(amb);
+
+      const pl = new THREE.PointLight(0x4566ff, 3.0, 30);
+      pl.position.set(5, 5, 8);
+      scene.add(pl);
+
+      const group = new THREE.Group();
+      scene.add(group);
+
+      const customObj = buildSceneFn(group);
+
+      let isIntersecting = true;
+      const obs = new IntersectionObserver((entries) => {
+        isIntersecting = entries[0].isIntersecting;
+      }, { threshold: 0.05 });
+      obs.observe(container);
+
+      let isHovered = false;
+      container.addEventListener('mouseenter', () => isHovered = true);
+      container.addEventListener('mouseleave', () => isHovered = false);
+
+      function loop() {
+        requestAnimationFrame(loop);
+        if (!isIntersecting) return;
+        customObj.update(isHovered);
+        renderer.render(scene, camera);
+      }
+      loop();
+    }
+
+    // 1. AI: Rotating Crystalline Neural Sphere
+    createModuleScene('canvas-ai', 'container-ai', (group) => {
+      const geom = new THREE.DodecahedronGeometry(4.5, 1);
+      const mat = new THREE.MeshStandardMaterial({
+        color: 0x4566ff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.8
+      });
+      const mesh = new THREE.Mesh(geom, mat);
+      group.add(mesh);
+
+      const inner = new THREE.Mesh(
+        new THREE.OctahedronGeometry(2.2, 0),
+        new THREE.MeshStandardMaterial({ color: 0x8765ff, roughness: 0.2 })
+      );
+      group.add(inner);
+
+      return {
+        update: (hover) => {
+          const spd = hover ? 0.03 : 0.01;
+          mesh.rotation.y += spd;
+          mesh.rotation.x += spd * 0.5;
+          inner.rotation.y -= spd * 1.5;
+        }
+      };
+    });
+
+    // 2. Data: Flowing Particle Stream Lattice
+    createModuleScene('canvas-data', 'container-data', (group) => {
+      const count = 60;
+      const pos = new Float32Array(count * 3);
+      for (let i = 0; i < count; i++) {
+        pos[i * 3] = (Math.random() - 0.5) * 8;
+        pos[i * 3 + 1] = (Math.random() - 0.5) * 8;
+        pos[i * 3 + 2] = (Math.random() - 0.5) * 8;
+      }
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      const mat = new THREE.PointsMaterial({ color: 0x4566ff, size: 0.45 });
+      const pts = new THREE.Points(geom, mat);
+      group.add(pts);
+
+      const box = new THREE.Mesh(
+        new THREE.BoxGeometry(6, 6, 6),
+        new THREE.MeshBasicMaterial({ color: 0x8765ff, wireframe: true, transparent: true, opacity: 0.35 })
+      );
+      group.add(box);
+
+      return {
+        update: (hover) => {
+          const spd = hover ? 0.025 : 0.008;
+          pts.rotation.y += spd;
+          box.rotation.y += spd * 0.7;
+          box.rotation.z += spd * 0.4;
+        }
+      };
+    });
+
+    // 3. Software: Wireframe Isometric Architecture Cubes
+    createModuleScene('canvas-software', 'container-software', (group) => {
+      const cubes = [];
+      const offsets = [
+        [-1.8, -1.8, 0], [1.8, -1.8, 0],
+        [-1.8, 1.8, 0], [1.8, 1.8, 0],
+        [0, 0, 2]
+      ];
+      offsets.forEach(([x, y, z]) => {
+        const c = new THREE.Mesh(
+          new THREE.BoxGeometry(2, 2, 2),
+          new THREE.MeshStandardMaterial({ color: 0x4566ff, wireframe: true, transparent: true, opacity: 0.75 })
+        );
+        c.position.set(x, y, z);
+        group.add(c);
+        cubes.push(c);
+      });
+      group.rotation.x = Math.PI / 6;
+      group.rotation.y = Math.PI / 4;
+
+      return {
+        update: (hover) => {
+          const spd = hover ? 0.03 : 0.01;
+          group.rotation.y += spd;
+          cubes.forEach((c, i) => {
+            c.rotation.z += spd * (i % 2 === 0 ? 1 : -1);
+          });
+        }
+      };
+    });
+
+    // 4. Cloud: Abstract Orbital Ring Cloud
+    createModuleScene('canvas-cloud', 'container-cloud', (group) => {
+      const r1 = new THREE.Mesh(
+        new THREE.TorusGeometry(4.2, 0.08, 16, 64),
+        new THREE.MeshBasicMaterial({ color: 0x4566ff, transparent: true, opacity: 0.85 })
+      );
+      const r2 = new THREE.Mesh(
+        new THREE.TorusGeometry(3.2, 0.08, 16, 64),
+        new THREE.MeshBasicMaterial({ color: 0x8765ff, transparent: true, opacity: 0.75 })
+      );
+      r2.rotation.x = Math.PI / 2.5;
+
+      const r3 = new THREE.Mesh(
+        new THREE.TorusGeometry(2.4, 0.08, 16, 64),
+        new THREE.MeshBasicMaterial({ color: 0x00d2ff, transparent: true, opacity: 0.8 })
+      );
+      r3.rotation.y = Math.PI / 3;
+
+      group.add(r1);
+      group.add(r2);
+      group.add(r3);
+
+      return {
+        update: (hover) => {
+          const spd = hover ? 0.03 : 0.012;
+          r1.rotation.z += spd;
+          r2.rotation.y += spd * 1.2;
+          r3.rotation.x += spd * 0.9;
+        }
+      };
+    });
+
+    /* ==========================================================================
+       7. SIGNATURE PIPELINE ("FROM SIGNAL TO SOLUTION")
+       ========================================================================== */
+    const pipelineCards = document.querySelectorAll('.pipeline-card');
+    const pipelineBadge = document.getElementById('pipeline-active-badge');
+    const signalStateText = document.getElementById('signal-state-text');
+    const signalConfText = document.getElementById('signal-conf-text');
+    const signalCanvas = document.getElementById('signal-canvas');
+
+    let currentPipelineStep = 0;
+    const pipelineStepData = [
+      { badge: 'CURRENT STAGE: 01 — UNDERSTAND', state: 'AUDITING SIGNAL & VECTOR LATENT SPACE', conf: '94.8%' },
+      { badge: 'CURRENT STAGE: 02 — ENGINEER', state: 'SYNTHESIZING AGENTIC ARCHITECTURE', conf: '98.9%' },
+      { badge: 'CURRENT STAGE: 03 — TRANSFORM', state: 'CONTINUOUS FEEDBACK HARNESS ACTIVE', conf: '99.9%' }
+    ];
+
+    function activatePipelineStep(index) {
+      currentPipelineStep = index;
+      pipelineCards.forEach((c, idx) => {
+        const isActive = idx === index;
+        c.classList.toggle('active', isActive);
+        c.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+      const data = pipelineStepData[index];
+      if (pipelineBadge) pipelineBadge.textContent = data.badge;
+      if (signalStateText) signalStateText.textContent = data.state;
+      if (signalConfText) signalConfText.textContent = data.conf;
+    }
+
+    pipelineCards.forEach(c => {
+      c.addEventListener('click', () => {
+        const step = parseInt(c.getAttribute('data-step') || '0', 10);
+        activatePipelineStep(step);
+      });
+      c.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const step = parseInt(c.getAttribute('data-step') || '0', 10);
+          activatePipelineStep(step);
+        }
+      });
+    });
+
+    // 2D Canvas Visualization for Signal to Solution
+    (function initSignalVisualizer() {
+      if (!signalCanvas) return;
+      const ctx = signalCanvas.getContext('2d');
+      if (!ctx) return;
+
+      function resizeSignalCanvas() {
+        signalCanvas.width = signalCanvas.parentElement.clientWidth;
+        signalCanvas.height = signalCanvas.parentElement.clientHeight;
+      }
+      resizeSignalCanvas();
+      window.addEventListener('resize', resizeSignalCanvas);
+
+      let animTime = 0;
+      function drawSignal() {
+        requestAnimationFrame(drawSignal);
+        animTime += 0.035;
+
+        const w = signalCanvas.width;
+        const h = signalCanvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        const centerY = h / 2;
+
+        if (currentPipelineStep === 0) {
+          // Unstructured noisy raw signals
+          ctx.strokeStyle = 'rgba(69, 102, 255, 0.4)';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          for (let x = 0; x < w; x += 4) {
+            const noise = Math.sin(x * 0.05 + animTime) * 35 + Math.sin(x * 0.12 - animTime * 1.5) * 20;
+            const y = centerY + noise;
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+
+          // Scattering particles
+          for (let i = 0; i < 28; i++) {
+            const px = ((i * 37 + animTime * 40) % w);
+            const py = centerY + Math.sin(px * 0.04 + i) * 55;
+            ctx.fillStyle = i % 2 === 0 ? '#4566ff' : '#8765ff';
+            ctx.beginPath();
+            ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        } else if (currentPipelineStep === 1) {
+          // Aligned geometric lattice with nodes
+          ctx.strokeStyle = 'rgba(69, 102, 255, 0.7)';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          for (let x = 0; x < w; x += 5) {
+            const wave = Math.sin(x * 0.02 + animTime) * 22;
+            const y = centerY + wave;
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+
+          // Connecting structured lattice nodes
+          const nodeCount = 8;
+          for (let i = 0; i < nodeCount; i++) {
+            const nx = (w / (nodeCount + 1)) * (i + 1);
+            const ny = centerY + Math.sin(nx * 0.02 + animTime) * 22;
+            ctx.fillStyle = '#101114';
+            ctx.fillRect(nx - 5, ny - 5, 10, 10);
+            ctx.strokeStyle = '#4566ff';
+            ctx.strokeRect(nx - 5, ny - 5, 10, 10);
+          }
+        } else {
+          // Focused crystalline coherent laser beam
+          const grad = ctx.createLinearGradient(0, centerY, w, centerY);
+          grad.addColorStop(0, '#4566ff');
+          grad.addColorStop(0.5, '#00d2ff');
+          grad.addColorStop(1, '#8765ff');
+
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 4;
+          ctx.beginPath();
+          ctx.moveTo(0, centerY);
+          ctx.lineTo(w, centerY);
+          ctx.stroke();
+
+          // High frequency pulse envelope
+          ctx.strokeStyle = 'rgba(69, 102, 255, 0.35)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          for (let x = 0; x < w; x += 3) {
+            const env = Math.sin(x * 0.08 + animTime * 3) * 8;
+            ctx.lineTo(x, centerY + env);
+          }
+          ctx.stroke();
+
+          // Fast packet traveler
+          const packetX = (animTime * 140) % w;
+          ctx.fillStyle = '#00d2ff';
+          ctx.beginPath();
+          ctx.arc(packetX, centerY, 5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      drawSignal();
+    })();
+
+    /* ==========================================================================
+       8. REAL WORK SHOWCASE: STREAMING CANVAS TELEMETRY
+       ========================================================================== */
+    (function initShowcaseChart() {
+      const canvas = document.getElementById('telemetry-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      function resizeChart() {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+      }
+      resizeChart();
+      window.addEventListener('resize', resizeChart);
+
+      const history = [];
+      for (let i = 0; i < 70; i++) {
+        history.push(40 + Math.random() * 40);
+      }
+
+      const eventCounter = document.getElementById('stat-events');
+
+      let tick = 0;
+      function renderChart() {
+        requestAnimationFrame(renderChart);
+        tick++;
+
+        if (tick % 4 === 0) {
+          history.shift();
+          const last = history[history.length - 1];
+          const next = Math.max(15, Math.min(85, last + (Math.random() - 0.49) * 16));
+          history.push(next);
+
+          if (eventCounter) {
+            const count = 142000 + Math.floor(Math.random() * 1900);
+            eventCounter.textContent = count.toLocaleString();
+          }
+        }
+
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        // Grid lines
+        ctx.strokeStyle = 'rgba(227, 230, 237, 0.7)';
+        ctx.lineWidth = 1;
+        for (let y = 20; y < h; y += 35) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.stroke();
+        }
+
+        // Draw Area & Path
+        ctx.beginPath();
+        const stepX = w / (history.length - 1);
+        history.forEach((val, i) => {
+          const x = i * stepX;
+          const y = h - (val / 100) * h;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+
+        ctx.strokeStyle = '#4566ff';
+        ctx.lineWidth = 2.2;
+        ctx.stroke();
+
+        ctx.lineTo(w, h);
+        ctx.lineTo(0, h);
+        ctx.fillStyle = 'rgba(69, 102, 255, 0.08)';
+        ctx.fill();
+      }
+      renderChart();
+    })();
+
+    /* ==========================================================================
+       9. DISTINCTIVE INTERACTIVE FEATURE ("What Could We Build for You?")
+       ========================================================================== */
+    const challengeData = {
+      workflow: {
+        pattern: 'RECOMMENDED PATTERN // EVENT ORCHESTRATION',
+        title: 'Automated Enterprise Workflow Engine',
+        desc: 'Eliminate brittle glue scripts and repetitive manual reconciliations. We build resilient event-driven orchestration pipelines with human approval gates, replayable event logs, and automatic transaction rollbacks.',
+        deliverables: [
+          'Architecture Specification & Threat Model',
+          'Event-Driven State Engine with Retry Queues',
+          'Human-in-the-Loop Admin Review Console',
+          'Real-Time Observability & OpenTelemetry Metrics'
+        ],
+        timeline: 'Target Timeline: Discovery 2w · Prototype 4w · Production 8w'
+      },
+      data: {
+        pattern: 'RECOMMENDED PATTERN // STREAMING LAKEHOUSE & OLAP',
+        title: 'Unified High-Throughput Analytics Platform',
+        desc: 'Transform scattered operational databases into a clean, unified real-time analytics lakehouse. Query billions of telemetry rows with sub-second latency and zero lock contention on transactional production tables.',
+        deliverables: [
+          'Unified Lakehouse Schema & dbt Transformations',
+          'Kafka Streaming Ingestion Pipeline with Schema Registry',
+          'ClickHouse Sub-Second OLAP Data Marts',
+          'Executive Analytics Dashboard with Automated Anomaly Alerts'
+        ],
+        timeline: 'Target Timeline: Audit 2w · Data Marts 4w · Production Rollout 10w'
+      },
+      ai: {
+        pattern: 'RECOMMENDED PATTERN // MULTI-AGENT RAG & EVALUATION HARNESS',
+        title: 'Autonomous Enterprise AI System',
+        desc: 'Deploy purpose-built multi-agent copilots and retrieval-augmented reasoning systems anchored strictly to verifiable enterprise data. Includes deterministic security guardrails and semantic drift monitoring.',
+        deliverables: [
+          'Enterprise Domain Knowledge Vector Embedding Matrix',
+          'Multi-Agent Coordination Harness with Role-Based Guardrails',
+          'Automated LLM Evaluation Suite with Hallucination Gates',
+          'Low-Latency Streaming API Service with Azure / AWS Host'
+        ],
+        timeline: 'Target Timeline: Scoping 2w · Agent Harness 5w · Enterprise Deployment 9w'
+      },
+      modernize: {
+        pattern: 'RECOMMENDED PATTERN // STRANGLER FIG & CLOUD-NATIVE DECOUPLING',
+        title: 'Zero-Downtime Microservices Modernization',
+        desc: 'Decompose monolithic legacy bottlenecks into horizontally scalable microservices. We employ the Strangler Fig pattern with shadow-traffic verification to guarantee flawless business continuity during transition.',
+        deliverables: [
+          'Decomposition Roadmap & Service Boundary Specification',
+          'Containerized Microservices on Kubernetes with Istio Mesh',
+          'Shadow Traffic Mirroring & Regression Test Verification',
+          'Automated CI/CD with GitOps and Canary Rollouts'
+        ],
+        timeline: 'Target Timeline: Mapping 3w · Service Migration 6w · Full Cutover 12w'
+      }
+    };
+
+    let activeChallengeKey = 'workflow';
+    const explorerBtns = document.querySelectorAll('.explorer-btn');
+    const expBadge = document.getElementById('explorer-badge');
+    const expTitle = document.getElementById('explorer-title');
+    const expDesc = document.getElementById('explorer-desc');
+    const deliv1 = document.getElementById('deliv-1');
+    const deliv2 = document.getElementById('deliv-2');
+    const deliv3 = document.getElementById('deliv-3');
+    const deliv4 = document.getElementById('deliv-4');
+    const expTimeline = document.getElementById('explorer-timeline-text');
+
+    function selectChallenge(key) {
+      activeChallengeKey = key;
+      explorerBtns.forEach(btn => {
+        const isSelected = btn.getAttribute('data-challenge') === key;
+        btn.classList.toggle('active', isSelected);
+        btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+      });
+
+      const d = challengeData[key];
+      if (!d) return;
+
+      if (expBadge) expBadge.textContent = d.pattern;
+      if (expTitle) expTitle.textContent = d.title;
+      if (expDesc) expDesc.textContent = d.desc;
+      if (deliv1) deliv1.textContent = d.deliverables[0];
+      if (deliv2) deliv2.textContent = d.deliverables[1];
+      if (deliv3) deliv3.textContent = d.deliverables[2];
+      if (deliv4) deliv4.textContent = d.deliverables[3];
+      if (expTimeline) expTimeline.textContent = d.timeline;
+    }
+
+    explorerBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-challenge');
+        if (key) selectChallenge(key);
+      });
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const key = btn.getAttribute('data-challenge');
+          if (key) selectChallenge(key);
+        }
+      });
+    });
+
+    function openConsultationWithChallenge() {
+      const titles = {
+        workflow: 'Workflow Automation Platform',
+        data: 'Streaming Data Lakehouse & BI',
+        ai: 'Autonomous AI Product Engineering',
+        modernize: 'Application Modernization'
+      };
+      openConsultationModal(titles[activeChallengeKey] || 'General Inquiry');
+    }
+
+    /* ==========================================================================
+       10. FINAL CTA 3D THREE.JS BACKGROUND SCENE
+       ======================================================================== */
+    (function initCtaBg() {
+      const canvas = document.getElementById('cta-canvas');
+      if (!canvas || !hasWebGL || typeof THREE === 'undefined') return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+      camera.position.z = 24;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const amb = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(amb);
+
+      const pl1 = new THREE.PointLight(0x4566ff, 3.5, 40);
+      pl1.position.set(10, 10, 12);
+      scene.add(pl1);
+
+      const pl2 = new THREE.PointLight(0x8765ff, 3.0, 40);
+      pl2.position.set(-10, -10, 12);
+      scene.add(pl2);
+
+      const knotGeom = new THREE.TorusKnotGeometry(7.5, 1.8, 100, 16);
+      const knotMat = new THREE.MeshStandardMaterial({
+        color: 0x4566ff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.28
+      });
+      const knotMesh = new THREE.Mesh(knotGeom, knotMat);
+      scene.add(knotMesh);
+
+      let isVis = false;
+      const obs = new IntersectionObserver((entries) => {
+        isVis = entries[0].isIntersecting;
+      }, { threshold: 0.1 });
+      obs.observe(canvas);
+
+      function loop() {
+        requestAnimationFrame(loop);
+        if (!isVis) return;
+        knotMesh.rotation.x += 0.003;
+        knotMesh.rotation.y += 0.005;
+        renderer.render(scene, camera);
+      }
+      loop();
+    })();
+
+    /* ==========================================================================
+       11. MODAL HANDLING: CONSULTATION & CASE STUDIES
+       ========================================================================== */
+    const consultModal = document.getElementById('consult-modal');
+    const projectModal = document.getElementById('project-modal');
+    const consultFocusSelect = document.getElementById('client-focus');
+    const consultForm = document.getElementById('consult-form');
+    const consultSuccessMsg = document.getElementById('consult-success-msg');
+
+    function openConsultationModal(topic) {
+      if (consultModal) {
+        consultModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        if (topic && consultFocusSelect) {
+          Array.from(consultFocusSelect.options).forEach(opt => {
+            if (opt.text.toLowerCase().includes(topic.toLowerCase())) {
+              opt.selected = true;
+            }
+          });
+        }
+      }
+    }
+
+    function closeConsultationModal() {
+      if (consultModal) {
+        consultModal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    const openConsultBtn = document.getElementById('open-consult-btn');
+    if (openConsultBtn) {
+      openConsultBtn.addEventListener('click', () => openConsultationModal('Consultation'));
+    }
+
+    function handleConsultationSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-consult-btn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Transmitting Parameters...</span>';
+      }
+
+      setTimeout(() => {
+        if (consultForm) consultForm.style.display = 'none';
+        if (consultSuccessMsg) consultSuccessMsg.style.display = 'block';
+        if (window.lucide) lucide.createIcons();
+      }, 700);
+    }
+
+    // Project Case Study Details
+    const projectDetails = {
+      rag: {
+        title: 'AI-Powered Knowledge Assistant // Architecture Blueprint',
+        body: `
+          <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
+              Engineered for high-compliance enterprise environments where hallucination risks and unauthorized document visibility are completely unacceptable.
+            </p>
+            <div style="background: var(--bg-base); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: var(--radius-sm);">
+              <h4 style="font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 0.5rem;">Pipeline Specifications</h4>
+              <ul style="list-style: none; font-size: 0.88rem; color: var(--text-primary); display: flex; flex-direction: column; gap: 0.45rem;">
+                <li>• <strong>Ingestion:</strong> Unstructured document chunking with metadata tagging and semantic entity graph mapping.</li>
+                <li>• <strong>Hybrid Retrieval:</strong> Sparse BM25 combined with dense 1536-dim vector cosine similarity search.</li>
+                <li>• <strong>Re-ranking:</strong> Cross-encoder re-ranking filter optimizing Top-5 chunk precision.</li>
+                <li>• <strong>Security:</strong> Document-level Role-Based Access Control (RBAC) enforced before context synthesis.</li>
+              </ul>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary);">
+              <span>BENCHMARK P95: 380ms TTFT</span>
+              <span>VERIFIABLE CITATION RATE: 100%</span>
+            </div>
+          </div>
+        `
+      },
+      analytics: {
+        title: 'Intelligent Analytics Lakehouse // Architecture Blueprint',
+        body: `
+          <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
+              Unified streaming pipeline built to resolve fragmented reporting and provide live anomaly alerting across distributed global supply chains.
+            </p>
+            <div style="background: var(--bg-base); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: var(--radius-sm);">
+              <h4 style="font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 0.5rem;">Pipeline Specifications</h4>
+              <ul style="list-style: none; font-size: 0.88rem; color: var(--text-primary); display: flex; flex-direction: column; gap: 0.45rem;">
+                <li>• <strong>Streaming Ingest:</strong> Apache Kafka with Avro schema registry processing 150K+ msg/sec.</li>
+                <li>• <strong>Transformation:</strong> dbt-managed dimensional modeling and automated data quality assertions.</li>
+                <li>• <strong>Storage Engine:</strong> ClickHouse partitioned column-family tables with ZSTD compression.</li>
+                <li>• <strong>Anomaly Detection:</strong> Dynamic Z-score thresholding detecting operational deviations in real time.</li>
+              </ul>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary);">
+              <span>QUERY P99: 14ms</span>
+              <span>COMPRESSION RATIO: 6.8x</span>
+            </div>
+          </div>
+        `
+      },
+      workflow: {
+        title: 'Workflow Automation Platform // Architecture Blueprint',
+        body: `
+          <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
+              Event-driven orchestration platform eliminating manual reconciliation overhead between core banking, CRM, and internal ledger databases.
+            </p>
+            <div style="background: var(--bg-base); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: var(--radius-sm);">
+              <h4 style="font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 0.5rem;">Pipeline Specifications</h4>
+              <ul style="list-style: none; font-size: 0.88rem; color: var(--text-primary); display: flex; flex-direction: column; gap: 0.45rem;">
+                <li>• <strong>State Machine:</strong> Temporal.io durable execution workflows with deterministic replay capability.</li>
+                <li>• <strong>Fault Tolerance:</strong> Exponential backoff retries, compensating saga transactions, and dead-letter queues.</li>
+                <li>• <strong>Human-in-the-Loop:</strong> Webhook signal gateways pausing execution pending authorized cryptographic sign-off.</li>
+                <li>• <strong>Audit Ledger:</strong> Append-only cryptographic audit logs for strict financial regulatory compliance.</li>
+              </ul>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary);">
+              <span>RECONCILIATION ERROR RATE: 0.00%</span>
+              <span>UPTIME: 99.99%</span>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    function openProjectModal(key) {
+      const data = projectDetails[key];
+      if (!data || !projectModal) return;
+      document.getElementById('project-modal-title').textContent = data.title;
+      document.getElementById('project-modal-content').innerHTML = data.body;
+      projectModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProjectModal() {
+      if (projectModal) {
+        projectModal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    window.addEventListener('click', (e) => {
+      if (e.target === consultModal) closeConsultationModal();
+      if (e.target === projectModal) closeProjectModal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeConsultationModal();
+        closeProjectModal();
+      }
+    });
+
+    /* ==========================================================================
+       12. ANIMATION SYSTEM (GSAP + INTERSECTIONOBSERVER SAFEGUARD)
+       ========================================================================== */
+    function playHeroEntrance() {
+      if (typeof gsap !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.from('.hero-badge, .hero-title, .hero-subtitle, .hero-cta-group, .hero-telemetry', {
+          y: 18,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: 'power2.out'
+        });
+      }
+    }
+
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Section Headers Reveal
+      gsap.utils.toArray('.section-header').forEach((hdr) => {
+        gsap.fromTo(hdr,
+          { y: 24, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: hdr,
+              start: 'top 95%',
+              once: true
+            },
+            y: 0,
+            opacity: 1,
+            duration: 0.75,
+            ease: 'power2.out'
+          }
+        );
+      });
+
+      // Expertise Cards Individual Stagger
+      gsap.utils.toArray('.expertise-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { y: 28, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 95%',
+              once: true
+            },
+            y: 0,
+            opacity: 1,
+            duration: 0.75,
+            delay: (i % 2) * 0.08,
+            ease: 'power2.out'
+          }
+        );
+      });
+
+      // Showcase Items Reveal
+      gsap.utils.toArray('.showcase-item').forEach((item) => {
+        gsap.fromTo(item,
+          { y: 28, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 92%',
+              once: true
+            },
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power2.out'
+          }
+        );
+      });
+
+      // Principles Cards Individual Reveal
+      gsap.utils.toArray('.principle-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { y: 24, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 95%',
+              once: true
+            },
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            delay: (i % 4) * 0.07,
+            ease: 'power2.out'
+          }
+        );
+      });
+
+      // IntersectionObserver safeguard to ensure no card stays hidden
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            gsap.to(entry.target, { y: 0, opacity: 1, duration: 0.5, overwrite: 'auto' });
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05 });
+
+      document.querySelectorAll('.expertise-card, .principle-card, .showcase-item').forEach(el => {
+        revealObserver.observe(el);
+      });
+
+      window.addEventListener('load', () => ScrollTrigger.refresh());
+      window.addEventListener('resize', () => ScrollTrigger.refresh());
+    }
+
+    /* ==========================================================================
+       13. MAGNETIC BUTTON REACTION (Desktop)
+       ========================================================================== */
+    document.querySelectorAll('.btn-magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0px, 0px)';
+      });
+    });
+  </script>
+</body>
+</html>
