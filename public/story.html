@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Rhevix story | Reason. Evolution. Execution.</title>
+<meta name="description" content="Sixty seconds on why most AI ideas never leave the pilot, and what it takes to change that. Reason. Evolution. Execution.">
+<link rel="canonical" href="https://rhevix.com/story.html">
+<meta property="og:title" content="The Rhevix story">
+<meta property="og:description" content="Sixty seconds on why most AI ideas never leave the pilot, and what it takes to change that.">
+<meta property="og:image" content="https://rhevix.com/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<!--
+  RHEVIX TEASER · HTML alignment build (v4) · Spectrum UI design language
+
+  Matches ui.spectrumhq.in (source: github.com/arihantcodes/spectrum-ui, Apache 2.0):
+    Theme ............ shadcn neutral tokens, exact values from Spectrum's globals.css (:root / .dark, HSL channels)
+    Brand colours .... Ink #0A0A0A · Paper #FAFAFA · Orange #F9452D (light accent) · Lime #E1F435 (dark accent)
+    Type ............. Spectral Light (display) · Inter (body) · Geist Mono (labels)   [Spectrum brand kit]
+    Headlines ........ .chroma-text + .chroma-text-animate (Spectrum hero sweep, verbatim)
+    Buttons .......... shadcn <Button> with Spectrum hero pill treatment (h-44, rounded-28, Inter 16)
+    Labels ........... Spectrum "Built with" label: Inter 11px uppercase + accent corner bracket
+    Badge ............ Spectrum CornerBadge (crop-mark corners)
+    Stage indicator .. shadcn <Badge> in Spectrum Status Badge styles (light + dark)
+    Progress ......... shadcn <Progress>
+    Text changes ..... Spectrum <TextStates> (transitions.dev recipe, verbatim CSS)
+    Keyboard hint .... Spectrum <KbdKey keyName="space">
+    Theme toggle ..... follows OS, toggles .dark on <html> (next-themes convention)
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.remove('dark');</script>
+<style>
+  /* ---------- shadcn tokens · Spectrum UI values ---------- */
+  :root {
+    --background: 0 0% 100%;       --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;             --card-foreground: 0 0% 3.9%;
+    --primary: 216 100% 47%;       --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96.1%;       --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;           --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;          --accent-foreground: 0 0% 9%;
+    --border: 0 0% 89.8%;          --input: 0 0% 89.8%;          --ring: 0 0% 3.9%;
+    --radius: 0.5rem;
+    --brand-accent: #0060F0;
+    /* particle palette for the canvas */
+    --particle-fg: #001030; --particle-mid: #0060F0; --particle-mute: #A9BEE6; --particle-soft: #E3ECFB;
+    --chroma: #00C2FA, #0060F0, #3A3FF2, #6A20F0;
+    --font-spectral: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .dark {
+    --background: 0 0% 3.9%;       --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;             --card-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;           --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;       --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;           --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;          --accent-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;          --input: 0 0% 14.9%;          --ring: 0 0% 83.1%;
+    --brand-accent: #E1F435;       /* Spectrum lime (dark) */
+    --particle-fg: #FAFAFA; --particle-mid: #A3A3A3; --particle-mute: #737373; --particle-soft: #404040;
+    --chroma: #c679c4, #fa3d1d, #ffb005, #e1e1fe, #0358f7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; border-color: hsl(var(--border)); }
+  html, body { background: hsl(var(--background)); color: hsl(var(--foreground)); font-family: var(--font-inter); -webkit-font-smoothing: antialiased; }
+  [hidden] { display: none !important; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  #track { height: 2200vh; }
+  #scene { position: fixed; inset: 0; overflow: hidden; background: hsl(var(--background)); }
+  #c { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+  /* ---------- Spectrum chroma headline sweep (verbatim) ---------- */
+  .chroma-text {
+    background-image: linear-gradient(90deg, #0A1030 0, #0A1030 33.33%, #00C2FA 42%, #0060F0 50%, #3A3FF2 56%, #6A20F0 60%, #0A1030 66.67%, #0A1030);
+    background-size: 300% 100%; background-position: 100% 0; will-change: background-position;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .dark .chroma-text {
+    background-image: linear-gradient(90deg, #ffffff 0, #ffffff 33.33%, #c679c4 40%, #fa3d1d 45%, #ffb005 50%, #e1e1fe 55%, #0358f7 60%, #ffffff 66.67%, #ffffff);
+  }
+  .chroma-text-animate { animation: chroma-sweep 0.9s ease-in-out 0.1s forwards; }
+  @keyframes chroma-sweep { to { background-position: 0 0; } }
+  .chroma-done { background-position: 0 0; }
+
+  /* ---------- shadcn Button · Spectrum hero pill ---------- */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; white-space: nowrap; cursor: pointer; text-decoration: none;
+    font-family: var(--font-inter); border: 1px solid transparent; outline: none;
+    transition: transform .2s ease-out, background-color .2s ease-out, color .2s, box-shadow .2s; }
+  .btn:active { transform: scale(.97); }
+  .btn:focus-visible { box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring)); }
+  .btn svg { width: 1rem; height: 1rem; flex-shrink: 0; pointer-events: none; }
+  .btn[data-variant="default"] { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+  .btn[data-variant="default"]:hover { background: hsl(var(--primary) / .9); }
+  .btn[data-variant="outline"] { background: #fff; color: #000;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 1px 2px 0 rgba(0,0,0,.04), 0 2px 4px 0 rgba(0,0,0,.04); }
+  .dark .btn[data-variant="outline"] { background: #171717; color: #fff; border-color: #262626; box-shadow: none; }
+  .btn[data-size="pill"] { height: 44px; border-radius: 28px; padding: 0 1.25rem; font-size: 16px; font-weight: 500; line-height: 22.4px; }
+  .btn[data-size="pill"][data-variant="outline"] { font-weight: 400; }
+  .btn[data-size="icon"] { height: 44px; width: 44px; border-radius: 9999px; padding: 0; }
+  .btn[data-variant="ghost"] { background: transparent; color: hsl(var(--foreground)); border-color: hsl(var(--border)); }
+  .btn[data-variant="ghost"]:hover { background: hsl(var(--accent)); }
+
+  /* ---------- Spectrum label ("Built with") ---------- */
+  .label { display: inline-flex; align-items: center; gap: .5rem; font: 500 11px/16px var(--font-inter); text-transform: uppercase;
+    letter-spacing: .04em; color: #737373; }
+  .dark .label { color: #a3a3a3; }
+  .label::before { content: ''; width: 7px; height: 7px; border-left: 2px solid var(--brand-accent); border-top: 2px solid var(--brand-accent); }
+
+  /* ---------- Spectrum CornerBadge ---------- */
+  .corner-badge { position: relative; display: inline-flex; }
+  .corner-badge i { position: absolute; width: 9px; height: 9px; border: 0 solid #000; pointer-events: none; }
+  .dark .corner-badge i { border-color: #d4d4d4; }
+  .corner-badge i:nth-child(1) { left: -4px; top: -4px; border-left-width: 2px; border-top-width: 2px; }
+  .corner-badge i:nth-child(2) { right: -4px; top: -4px; border-right-width: 2px; border-top-width: 2px; }
+  .corner-badge i:nth-child(3) { left: -4px; bottom: -4px; border-left-width: 2px; border-bottom-width: 2px; }
+  .corner-badge i:nth-child(4) { right: -4px; bottom: -4px; border-right-width: 2px; border-bottom-width: 2px; }
+  .corner-badge span { display: inline-flex; align-items: center; height: 26px; padding: 0 .75rem; background: #ececec; color: #000;
+    font: 400 15px/24px var(--font-inter); letter-spacing: -0.2px; }
+  .dark .corner-badge span { background: #262626; color: #f5f5f5; }
+
+  /* ---------- shadcn Badge · Spectrum Status Badge ---------- */
+  .badge { display: inline-flex; align-items: center; gap: .375rem; border-radius: 9999px; padding: .125rem .625rem;
+    font: 500 .75rem/1.25rem var(--font-inter); box-shadow: inset 0 0 0 1px var(--ring-c); transition: background-color .3s, color .3s; }
+  .badge svg { width: .875rem; height: .875rem; }
+  .status-success  { background: #ecfdf5; color: #047857; --ring-c: rgba(5,150,105,.2); }
+  .status-progress { background: #f0f9ff; color: #0369a1; --ring-c: rgba(2,132,199,.2); }
+  .status-upcoming { background: #f5f5f5; color: #525252; --ring-c: rgba(115,115,115,.2); }
+  .dark .status-success  { background: rgba(52,211,153,.1); color: #6ee7b7; --ring-c: rgba(110,231,183,.25); }
+  .dark .status-progress { background: rgba(56,189,248,.1); color: #7dd3fc; --ring-c: rgba(125,211,252,.25); }
+  .dark .status-upcoming { background: rgba(163,163,163,.1); color: #d4d4d4; --ring-c: rgba(212,212,212,.2); }
+  .status-progress svg { animation: spin 2.4s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- shadcn Progress ---------- */
+  .progress { position: fixed; top: 0; left: 0; right: 0; z-index: 9; height: 2px; overflow: hidden; background: hsl(var(--secondary)); }
+  .progress-indicator { height: 100%; width: 100%; background: hsl(var(--primary)); transform: translateX(-100%); }
+
+  /* ---------- Spectrum TextStates (verbatim) ---------- */
+  .t-text-swap{display:inline-block;transform:translateY(0);filter:blur(0);opacity:1;transition:transform var(--text-swap-dur) var(--text-swap-ease),filter var(--text-swap-dur) var(--text-swap-ease),opacity var(--text-swap-dur) var(--text-swap-ease);will-change:transform,filter,opacity}
+  .t-text-swap.is-exit{transform:translateY(calc(var(--text-swap-translate-y) * -1));filter:blur(var(--text-swap-blur));opacity:0}
+  .t-text-swap.is-enter-start{transform:translateY(var(--text-swap-translate-y));filter:blur(var(--text-swap-blur));opacity:0;transition:none}
+  @media (prefers-reduced-motion: reduce){.t-text-swap{transition:none !important}}
+
+  /* ---------- Spectrum KbdKey ---------- */
+  .kbd { display: inline-flex; align-items: center; justify-content: center; height: 1.75rem; min-width: 28px; padding: 0 .5rem; border-radius: .375rem;
+    border: 1px solid #e5e5e5; background: #fafafa; color: #404040; font: 400 .75rem var(--font-mono); box-shadow: 0 2px 0 0 #d4d4d4;
+    user-select: none; transition: background-color .1s ease-out, box-shadow .1s ease-out, transform .08s ease-out; }
+  .dark .kbd { border-color: #404040; background: #262626; color: #e5e5e5; box-shadow: 0 2px 0 0 #525252; }
+  .kbd.is-pressed { background: #f5f5f5; box-shadow: 0 0 0 0 #d4d4d4; transform: translateY(2px); }
+  .dark .kbd.is-pressed { background: #404040; box-shadow: 0 0 0 0 #525252; }
+
+  /* ---------- layout ---------- */
+  .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 9; height: 64px; display: flex; align-items: center; gap: 1rem; padding: 0 28px; }
+  .wordmark { display: flex; align-items: center; gap: .55rem; font: 600 18px/1 var(--font-inter); letter-spacing: -0.4px; color: hsl(var(--foreground)); text-decoration: none; }
+  .wordmark svg { width: 26px; height: 26px; }
+  .stages { display: flex; gap: .5rem; margin-left: auto; transition: opacity .4s; }
+  .stages.gone { opacity: 0; pointer-events: none; }
+  #themeBtn { display: none !important; }
+  .stages.gone + #themeBtn { margin-left: auto; }
+
+  .headline { position: absolute; left: 50%; top: 66vh; transform: translateX(-50%); width: min(960px, 90vw); text-align: center; pointer-events: none;
+    display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+  .headline .label { transition: opacity .3s; }
+  .headline h2 { font: 600 clamp(28px, 3.8vw, 50px)/1.1 var(--font-spectral); letter-spacing: -0.035em; text-wrap: balance; min-height: 2.1em; color: hsl(var(--foreground)); }
+  .headline h2 em { font-style: italic; }
+  .headline h2.dim .t-text-swap { opacity: .55; }
+  .headline h2.dim .t-text-swap.is-exit, .headline h2.dim .t-text-swap.is-enter-start { opacity: 0; }
+
+  #start { position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%); z-index: 6; display: flex; flex-direction: column;
+    align-items: center; gap: 1rem; transition: opacity .5s ease, transform .5s ease; }
+  #start.gone { opacity: 0; transform: translate(-50%, 12px); pointer-events: none; }
+  .hint { display: flex; align-items: center; gap: .625rem; font: 500 14px/20px var(--font-inter); color: #646464; }
+  .dark .hint { color: #a3a3a3; }
+
+  #nudge { position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%); z-index: 6; opacity: 0; transition: opacity .6s ease; pointer-events: none;
+    display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  #nudge.on { opacity: 1; }
+  #nudge i { width: 1px; height: 22px; background: hsl(var(--muted-foreground)); animation: drip 1.4s ease-in-out infinite; transform-origin: top; }
+  @keyframes drip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+  #ctrl { position: fixed; right: 28px; bottom: 28px; z-index: 6; opacity: 0; pointer-events: none; transition: opacity .4s; }
+  #ctrl.on { opacity: 1; pointer-events: auto; }
+
+  /* ---------- the payoff ---------- */
+  #arrive { position: fixed; inset: 0; z-index: 8; overflow-y: auto; background: hsl(var(--background)); color: hsl(var(--foreground));
+    opacity: 0; pointer-events: none; transition: opacity .6s ease; display: flex; align-items: center; justify-content: center; padding: 96px 24px 48px; text-align: center; }
+  #arrive.show { opacity: 1; pointer-events: auto; }
+  .inner { max-width: 980px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+  .r { opacity: 0; transform: translateY(18px); transition: opacity .8s ease-out, transform .8s cubic-bezier(.22,1,.36,1); transition-delay: var(--d, 0ms); }
+  #arrive.show .r { opacity: 1; transform: none; }
+  .mark { width: 120px; height: 120px; display: block; overflow: visible; margin-bottom: 36px; }
+  .mark .pc { transform-box: view-box; transform-origin: 100px 100px; transform: scale(0); opacity: 0;
+    transition: transform .9s cubic-bezier(.2,.9,.25,1.15), opacity .5s; transition-delay: var(--d, 0ms); }
+  .mark .pc.slide { transform: translateX(-40px); }
+  .mark .pc.drop { transform: translateY(-40px); }
+  #arrive.show .mark .pc { transform: none; opacity: 1; }
+  .mark .ink { fill: #001030; }
+  .mark .paper { fill: #ffffff; }
+  h1 { margin-top: 28px; font: 700 clamp(40px, 6.4vw, 84px)/1.0 var(--font-spectral); letter-spacing: -0.04em; padding: .08em .1em .18em; }
+  .mantra { margin-top: 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 0 .4em; font: 600 clamp(22px, 2.6vw, 32px)/1.2 var(--font-spectral); letter-spacing: -0.03em; color: #0060F0; }
+  .mantra span:last-child { font-style: italic; }
+  .line { margin: 18px auto 0; max-width: 46ch; font: 500 14px/20px var(--font-inter); color: #646464; }
+  .dark .line { color: #a3a3a3; }
+  .actions { margin-top: 28px; display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+  .actions .btn { min-width: 180px; }
+
+  @media (max-width: 700px) {
+    .topbar { padding: 0 16px; }
+    .stages { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%); margin: 0; }
+    .stages.gone + #themeBtn, #themeBtn { margin-left: auto; }
+    .headline { top: 60vh; }
+    .headline h2 { font-size: 30px; letter-spacing: -0.05em; }
+    #ctrl { right: 16px; bottom: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .r, .mark .pc { transition: none !important; }
+    .chroma-text-animate { animation: none; background-position: 0 0; }
+    #nudge i, .status-progress svg { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div id="track"></div>
+
+<div id="scene" aria-hidden="true">
+  <canvas id="c"></canvas>
+  <div class="headline">
+    <span class="label" id="chapter">The idea</span>
+    <h2 id="beat"><span class="t-text-swap" id="beatText"
+      style="--text-swap-dur:280ms;--text-swap-translate-y:12px;--text-swap-blur:6px;--text-swap-ease:ease-in-out"></span></h2>
+  </div>
+</div>
+
+<header class="topbar">
+  <a class="wordmark" href="/" aria-label="Rhevix home"><img src="/brand/rhevix-logo.png" alt="Rhevix" style="height:30px;width:auto"></a>
+  <div class="stages gone" id="stages" aria-hidden="true">
+    <span class="badge status-upcoming"></span><span class="badge status-upcoming"></span><span class="badge status-upcoming"></span>
+  </div>
+  <button class="btn" data-variant="ghost" data-size="icon" id="themeBtn" type="button" aria-label="Toggle theme"></button>
+</header>
+
+<div class="progress" role="progressbar" aria-label="Story progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress">
+  <div class="progress-indicator" id="progressInd"></div>
+</div>
+
+<div id="start">
+  <button class="btn" data-variant="default" data-size="pill" id="playBtn" type="button" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+    Play the story
+  </button>
+  <div class="hint" id="hint">Press <kbd class="kbd" id="kbdSpace">space</kbd> <span id="hintText">to pause, or scroll to take control</span></div>
+</div>
+
+<div id="nudge"><span class="label">Keep scrolling</span><i></i></div>
+<button class="btn" data-variant="outline" data-size="icon" id="ctrl" type="button" aria-label="Pause"></button>
+
+<div class="sr-only" id="srStory"></div>
+
+<section id="arrive" aria-label="Rhevix">
+  <div class="inner">
+    <img class="r" style="--d:0ms;height:96px;width:auto;margin-bottom:28px" src="/brand/rhevix-logo-tagline.png" alt="Rhevix. Engineering What’s Next.">
+    <div class="corner-badge r" style="--d:900ms"><i></i><i></i><i></i><i></i><span>Engineering and AI for regulated enterprises</span></div>
+    <h1 class="r chroma-text" id="arriveTitle" style="--d:1050ms">Engineering What’s Next.</h1>
+    <p class="mantra">
+      <span class="r" style="--d:1500ms">Reason.</span>
+      <span class="r" style="--d:1750ms">Evolution.</span>
+      <span class="r" style="--d:2000ms">Execution.</span>
+    </p>
+    <p class="line r" style="--d:2300ms">Your people bring the ideas. We help take them all the way to production.</p>
+    <div class="actions r" style="--d:2550ms">
+      <a class="btn" data-variant="default" data-size="pill" href="/contact">Book a consultation</a>
+      <button class="btn" data-variant="outline" data-size="pill" type="button" id="again">Watch again</button>
+      <a class="btn" data-variant="outline" data-size="pill" href="/">Visit the website</a>
+    </div>
+    <span class="label r" style="--d:2800ms;margin-top:40px">Reason · Evolution · Execution</span>
+  </div>
+</section>
+
+<script>
+(() => {
+  /* ---------- the story ---------- */
+  const BEATS = [
+    { h: 'Every enterprise is full of good ideas.', ch: 'The idea' },
+    { h: 'Better service. Safer decisions. Faster operations.', ch: 'The idea' },
+    { h: 'Behind every one is someone who believes it can be done.', ch: 'The people' },
+    { h: 'Too often, those ideas never leave the pilot.', ch: 'The gap', dim: true },
+    { h: 'They stall between proof of concept and production. Between ambition and risk.', ch: 'The gap', dim: true },
+    { h: 'That gap is not permanent. It is a problem. <em>And problems can be solved.</em>', ch: 'The turn' },
+    { h: 'It starts with <em>reason</em>: understanding the problem before building anything.', ch: 'The method', stage: 0 },
+    { h: 'Then <em>evolution</em>: a team that changes shape as the work does.', ch: 'The method', stage: 1 },
+    { h: 'Then <em>execution</em>: systems in production, measured and owned.', ch: 'The method', stage: 2 },
+    { h: 'Senior engineers and AI specialists. One accountable team.', ch: 'The team' },
+    { h: 'Working inside your controls. On your terms.', ch: 'The team' },
+    { h: 'From pilot to production. From idea to impact.', ch: 'The outcome' },
+    { h: 'Your people know what needs to change. We help them build it.', ch: 'The future' },
+    { h: 'Your best work is still <em>ahead of you.</em>', ch: 'The future' },
+    { h: '', ch: '' },
+  ];
+  const SEGS = BEATS.length, B_MAX = SEGS + .3, HOLD = .6, SECONDS_PER_BEAT = 4.2;
+  const STAGE_LABELS = ['Reason', 'Evolution', 'Execution'];
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const EASE = reduce ? 1 : .08;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const mixc = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
+  const smooth = t => t * t * (3 - 2 * t);
+  const mod = (a, n) => ((a % n) + n) % n;
+  const TAU = Math.PI * 2;
+  const root = document.documentElement;
+
+  /* ---------- palette from the theme tokens (re-read on theme change) ---------- */
+  const toRgb = h => { h = h.trim().replace('#', ''); return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)); };
+  let C, BG, BORDER, DARK;
+  function readTheme() {
+    const s = getComputedStyle(root), v = n => s.getPropertyValue(n).trim();
+    C = { fg: toRgb(v('--particle-fg')), mid: toRgb(v('--particle-mid')), mute: toRgb(v('--particle-mute')), soft: toRgb(v('--particle-soft')),
+          accent: toRgb(v('--brand-accent')), chroma: v('--chroma').split(',').map(toRgb) };
+    BG = `hsl(${v('--background')})`; BORDER = `hsl(${v('--border')})`; DARK = root.classList.contains('dark');
+  }
+  readTheme();
+  const rgb = c => `rgb(${c[0] | 0},${c[1] | 0},${c[2] | 0})`;
+
+  /* ---------- theme toggle (next-themes style) ---------- */
+  const themeBtn = document.getElementById('themeBtn');
+  const SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
+  const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+  const paintThemeBtn = () => { const d = root.classList.contains('dark'); themeBtn.innerHTML = d ? SUN : MOON; themeBtn.setAttribute('aria-label', d ? 'Switch to light theme' : 'Switch to dark theme'); };
+  themeBtn.addEventListener('click', () => {
+    const d = !root.classList.contains('dark'); root.classList.toggle('dark', d);
+    try { localStorage.setItem('rhevix-theme', d ? 'dark' : 'light'); } catch (e) {}
+    readTheme(); paintThemeBtn();
+  });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    let saved = null; try { saved = localStorage.getItem('rhevix-theme'); } catch (_) {}
+    if (!saved) { root.classList.toggle('dark', e.matches); readTheme(); paintThemeBtn(); }
+  });
+  paintThemeBtn();
+
+  const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+  const arrive = document.getElementById('arrive'), arriveTitle = document.getElementById('arriveTitle');
+  const progEl = document.getElementById('progress'), progInd = document.getElementById('progressInd');
+  const startEl = document.getElementById('start'), nudgeEl = document.getElementById('nudge'), ctrlEl = document.getElementById('ctrl');
+  const stagesEl = document.getElementById('stages'), stageBadges = [...stagesEl.querySelectorAll('.badge')];
+  const beatH2 = document.getElementById('beat'), beatSpan = document.getElementById('beatText'), chapterEl = document.getElementById('chapter');
+  document.getElementById('srStory').textContent = BEATS.map(b => b.h.replace(/<[^>]+>/g, '')).join(' ');
+
+  /* ---------- Spectrum TextStates swap + chroma sweep on each new line ---------- */
+  const SWAP_MS = 280;
+  let shownKey = null, wantedKey = 0, swapping = false;
+  function applyBeat(k) {
+    const b = k == null ? null : BEATS[k];
+    beatSpan.innerHTML = b ? b.h : '';
+    beatH2.classList.toggle('dim', !!(b && b.dim));
+    chapterEl.textContent = b ? b.ch : '';
+    chapterEl.style.opacity = b && b.ch ? 1 : 0;
+    beatSpan.classList.remove('chroma-text', 'chroma-text-animate', 'chroma-done');
+    if (b && !b.dim && b.h) {
+      beatSpan.classList.add('chroma-text');
+      if (reduce) beatSpan.classList.add('chroma-done');
+      else { void beatSpan.offsetWidth; beatSpan.classList.add('chroma-text-animate'); }
+    }
+  }
+  function requestBeat(k) {
+    wantedKey = k;
+    if (swapping || k === shownKey) return;
+    if (reduce) { shownKey = k; applyBeat(k); return; }
+    swapping = true;
+    beatSpan.classList.add('is-exit');
+    setTimeout(() => {
+      shownKey = wantedKey; applyBeat(shownKey);
+      beatSpan.classList.remove('is-exit');
+      beatSpan.classList.add('is-enter-start');
+      void beatSpan.offsetHeight;
+      beatSpan.classList.remove('is-enter-start');
+      setTimeout(() => { swapping = false; if (wantedKey !== shownKey) requestBeat(wantedKey); }, SWAP_MS);
+    }, SWAP_MS);
+  }
+  shownKey = 0; applyBeat(0);
+
+  /* ---------- Spectrum Status Badges ---------- */
+  const ICONS = {
+    success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>',
+    progress: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.1 2.18a9.93 9.93 0 0 1 3.8 0"/><path d="M17.6 3.71a9.95 9.95 0 0 1 2.69 2.7"/><path d="M21.82 10.1a9.93 9.93 0 0 1 0 3.8"/><path d="M20.29 17.6a9.95 9.95 0 0 1-2.7 2.69"/><path d="M13.9 21.82a9.94 9.94 0 0 1-3.8 0"/><path d="M6.4 20.29a9.95 9.95 0 0 1-2.69-2.7"/><path d="M2.18 13.9a9.93 9.93 0 0 1 0-3.8"/><path d="M3.71 6.4a9.95 9.95 0 0 1 2.7-2.69"/></svg>',
+    upcoming: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>',
+  };
+  let lastStage = null;
+  function setStages(active) {
+    if (active === lastStage) return; lastStage = active;
+    stageBadges.forEach((el, k) => {
+      const s = active < 0 ? 'upcoming' : k < active ? 'success' : k === active ? 'progress' : 'upcoming';
+      el.className = 'badge status-' + s; el.innerHTML = ICONS[s] + STAGE_LABELS[k];
+    });
+  }
+  setStages(-1);
+
+  /* ---------- particles (colour by role, so the theme can switch live) ---------- */
+  const N = innerWidth < 700 ? 260 : 384;
+  const S = Array.from({ length: N }, (_, i) => ({
+    a: Math.random(), b: Math.random(), c: Math.random(), d: Math.random(),
+    role: i % 10 < 5 ? 'fg' : i % 10 < 8 ? 'mid' : 'chroma', k: i,
+  }));
+  const col = i => S[i].role === 'chroma' ? C.chroma[S[i].k % C.chroma.length] : C[S[i].role];
+  const chromaOf = n => C.chroma[n % C.chroma.length];
+  const PEOPLE = 22, BUILDERS = 9;
+
+  function rectPoint(p, w, h) {
+    const per = 2 * (w + h); let s = mod(p, 1) * per;
+    if (s < w) return [-w / 2 + s, -h / 2]; s -= w;
+    if (s < h) return [w / 2, -h / 2 + s]; s -= h;
+    if (s < w) return [w / 2 - s, h / 2]; s -= w;
+    return [-w / 2, h / 2 - s];
+  }
+  const personPos = k => { const u = k / (PEOPLE - 1); return [(u - .5) * 900, Math.sin(u * Math.PI * 3 + .6) * 70 + (k % 2 ? 40 : -40)]; };
+
+  // Each scene: (i, t, hp) -> [x, y, rgb, size, alpha]
+  const SCENES = [
+    (i, t) => [(S[i].a - .5) * 1300, (S[i].b - .5) * 640, C.fg, 1, .1 + .08 * Math.sin(t + S[i].c * 9)],                       // ideas, faint
+    (i, t) => { const ang = S[i].a * TAU, rad = 30 + Math.sqrt(S[i].b) * 420;                                                     // bloom, in spectrum colour
+      return [Math.cos(ang) * rad + Math.sin(t * .3 + S[i].c * 6) * 10, Math.sin(ang) * rad * .55 + Math.cos(t * .25 + S[i].d * 6) * 8,
+        col(i), 1.3 + S[i].c * 2.4, .45 + .5 * Math.abs(Math.sin(t * 1.2 + S[i].d * 9))]; },
+    (i, t) => { const k = i % PEOPLE, [px, py] = personPos(k);                                                                      // the people
+      if (i < PEOPLE) return [px, py + Math.sin(t * .8 + k) * 4, C.fg, 3, 1];
+      const ang = S[i].a * TAU + t * (.5 + S[i].c * .5), rad = 12 + S[i].b * 22;
+      return [px + Math.cos(ang) * rad, py + Math.sin(ang) * rad * .8, i % 3 ? C.mid : C.fg, 1.2, .6]; },
+    (i, t) => { const x = (S[i].a - .5) * 1000, h = Math.max(0, 1 - Math.abs(x) / 500);                                           // stuck
+      return [x, 150 - Math.pow(h, 1.5) * S[i].b * 140 + Math.sin(t * .2 + S[i].c * 6) * 2, C.mute, 1.8, .55]; },
+    (i, t) => { const side = i % 2 ? 1 : -1;                                                                                         // the gap
+      if (S[i].d < .1) { const u = mod(S[i].c + t * .12, 1); return [-side * lerp(-170, 170, u), (S[i].b - .5) * 60, C.mid, 1.6, .7 * (1 - smooth(clamp((u - .25) / .25)))]; }
+      const ang = S[i].a * TAU + t * .03 * side, rad = Math.sqrt(S[i].b) * 160;
+      return [side * 330 + Math.cos(ang) * rad, Math.sin(ang) * rad * .8, side < 0 ? C.mid : C.mute, 1.8, side < 0 ? .8 : .5]; },
+    (i, t) => { const side = i % 2 ? 1 : -1, ang = S[i].a * TAU + t * .06, rad = Math.sqrt(S[i].b) * 200;                       // the turn
+      return [side * 90 + Math.cos(ang) * rad, Math.sin(ang) * rad * .75, col(i), 2, .9]; },
+    (i, t) => { let lat, lon;                                                                                                        // reason: sphere
+      if (i % 2 === 0) { lat = (((i >> 1) % 7) - 3) / 3.4 * (Math.PI / 2) * .92; lon = S[i].a * TAU; }
+      else { lon = ((i >> 1) % 8) / 8 * Math.PI + (S[i].c < .5 ? 0 : Math.PI); lat = (S[i].b - .5) * Math.PI; }
+      let x = Math.cos(lat) * Math.cos(lon), y = Math.sin(lat), z = Math.cos(lat) * Math.sin(lon); const ry = t * .25, rx = .38;
+      [x, z] = [x * Math.cos(ry) - z * Math.sin(ry), x * Math.sin(ry) + z * Math.cos(ry)];
+      [y, z] = [y * Math.cos(rx) - z * Math.sin(rx), y * Math.sin(rx) + z * Math.cos(rx)];
+      const depth = (z + 1) / 2; return [x * 215, y * 215, mixc(C.mute, C.fg, depth), 1.2 + depth * 1.6, .3 + .7 * depth]; },
+    (i, t) => { const strand = i % 3;                                                                                                // evolution: helix
+      if (strand === 2) { const k = Math.floor(S[i].b * 18), x = (k / 17 - .5) * 900, ph = x * .012 + t * .8;
+        return [x, lerp(Math.sin(ph) * 110, Math.sin(ph + Math.PI) * 110, S[i].c), C.mute, 1.2, .45]; }
+      const x = (S[i].a - .5) * 900, ph = x * .012 + t * .8 + strand * Math.PI, z = Math.cos(ph);
+      return [x, Math.sin(ph) * 110, strand ? C.mid : C.fg, 1.5 + (z + 1) * .8, .45 + .27 * (z + 1)]; },
+    (i, t) => { const layer = i % 3, g = Math.floor(i / 3) % 144, gx = g % 12, gy = Math.floor(g / 12);                          // execution: layers
+      const px = (gx - 5.5) * 25, py = (gy - 5.5) * 25, shimmer = layer === 2 ? .65 + .35 * Math.sin(t * 2 - (gx + gy) * .4) : .85;
+      return [(px - py) * .95, (px + py) * .42 + (1 - layer) * 95, [C.mute, C.mid, C.fg][layer], 1.9, shimmer]; },
+    (i, t) => { if (i < 14) { const ang = S[i].a * TAU + t * .5; return [Math.cos(ang) * 14, Math.sin(ang) * 14, C.fg, 2.4, 1]; }   // the team
+      const k = i % 5, ca = k / 5 * TAU - Math.PI / 2 + t * .1, cx0 = Math.cos(ca) * 240, cy0 = Math.sin(ca) * 150;
+      const ang = S[i].a * TAU + t * (.6 + S[i].c * .6), rad = 10 + S[i].b * 38;
+      return [cx0 + Math.cos(ang) * rad, cy0 + Math.sin(ang) * rad * .8, chromaOf(k), 1.8, .9]; },
+    (i, t) => { if (i % 4 === 0) { const [x, y] = rectPoint(S[i].a + t * .015, 540, 300); return [x, y, C.fg, 1.5, .8]; }        // your controls
+      return [Math.sin(t * (.25 + S[i].c * .35) + S[i].a * 20) * 240, Math.sin(t * (.2 + S[i].d * .3) + S[i].b * 20) * 128, i % 3 ? C.mid : C.fg, 1.9, .85]; },
+    (i, t) => { const u = mod(S[i].a + t * .08 * (.85 + S[i].c * .3), 1), spread = (S[i].b - .5) * 380 * Math.pow(1 - u, 1.6);   // pilot to production
+      return [-600 + u * 1200, spread + Math.sin(u * 6 + t * .6) * 22 * (1 - u), mixc(col(i), C.fg, smooth(u)), 1.9, .9 * Math.min(clamp(u / .06), clamp((1 - u) / .06))]; },
+    (i, t) => { const k = i % BUILDERS, px = (k / (BUILDERS - 1) - .5) * 680, base = 150;                                           // people build
+      if (i < BUILDERS) return [px, base, C.fg, 3.2, 1];
+      const u = mod(S[i].a + t * (.12 + S[i].c * .06), 1), h = 150 + ((k * 37) % 5) * 45;
+      return [px + (S[i].b - .5) * 34 * (1 - u * .6), base - 12 - u * h, mixc(C.fg, C.mute, u), 1.7, .9 * Math.min(clamp(u / .1), clamp((1 - u) / .25))]; },
+    (i, t) => { const u = mod(S[i].a + t * (.05 + S[i].c * .04), 1);                                                                // the ascent
+      return [(S[i].b - .5) * 1250 + Math.sin(t * .5 + S[i].d * 9) * 18, 200 - u * 560, i % 6 === 0 ? C.fg : col(i),
+        1.4 + S[i].c * 1.8, .95 * Math.min(clamp(u / .12), clamp((1 - u) / .2))]; },
+    (i, t, hp) => { const rad = Math.pow(1 - hp, 1.4) * (40 + S[i].b * 320) + 2, ang = S[i].a * TAU + hp * 6 + t * .5;             // back to the spark
+      return [Math.cos(ang) * rad, Math.sin(ang) * rad * .85, col(i), 2, .95 * (1 - clamp((hp - .8) / .2))]; },
+  ];
+  const SPARK = [.9, .55, .25, .06, 0, .3, .35, .15, 0, 0, .15, 0, .2, .4, 1];
+  const ZOOM  = [.9, .95, 1, 1, 1, 1.03, 1.02, 1.04, 1.04, 1.06, 1.06, 1.06, 1.06, 1.02, 1.2];
+
+  let W, H, cx, cy, unit, dpr;
+  function layout() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight; cx = W / 2; cy = H * .36;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    unit = Math.min(W, H * 1.5) / 1150;
+  }
+
+  /* ---------- scroll, play, keyboard ---------- */
+  let target = 0, cur = 0, revealed = false, floodStart = 0, floodFrom = 0;
+  let playing = false, lastInput = performance.now(), started = false, userTook = false;
+  const maxScroll = () => document.documentElement.scrollHeight - innerHeight;
+  const readScroll = () => { const m = maxScroll(); target = m > 0 ? clamp(scrollY / m) : 0; };
+  const ICON_PAUSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>';
+  const ICON_PLAY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>';
+  function setPlaying(v) { playing = v; started = true; ctrlEl.innerHTML = v ? ICON_PAUSE : ICON_PLAY; ctrlEl.setAttribute('aria-label', v ? 'Pause' : 'Play'); }
+  document.getElementById('playBtn').addEventListener('click', () => setPlaying(true));
+  ctrlEl.addEventListener('click', () => setPlaying(!playing));
+  const userTookOver = () => { lastInput = performance.now(); started = true; userTook = true; if (playing) setPlaying(false); };
+  addEventListener('wheel', userTookOver, { passive: true });
+  addEventListener('touchstart', userTookOver, { passive: true });
+  const kbd = document.getElementById('kbdSpace');
+  addEventListener('keydown', e => {
+    if (e.key === ' ' && !arrive.classList.contains('show') && !(e.target instanceof HTMLButtonElement || e.target instanceof HTMLAnchorElement)) {
+      e.preventDefault(); kbd.classList.add('is-pressed'); userTook = true; if (!e.repeat) setPlaying(!playing); return;
+    }
+    if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End'].includes(e.key)) userTookOver();
+  });
+  addEventListener('keyup', e => { if (e.key === ' ') kbd.classList.remove('is-pressed'); });
+  addEventListener('scroll', () => { readScroll(); if (!playing) lastInput = performance.now(); }, { passive: true });
+
+  let lastT = performance.now();
+  function frame(now) {
+    const dt = Math.min(.05, (now - lastT) / 1000); lastT = now;
+    const t = reduce ? 0 : now / 1000;
+    if (playing) { scrollTo(0, scrollY + maxScroll() / (B_MAX * SECONDS_PER_BEAT) * dt); if (cur * B_MAX >= SEGS + .1) setPlaying(false); }
+
+    cur += (target - cur) * EASE; if (Math.abs(target - cur) < 1e-5) cur = target;
+    const b = cur * B_MAX, bi = Math.min(Math.floor(b), SEGS - 1), frac = b - bi;
+    const isClose = bi === SEGS - 1, hp = isClose ? clamp(frac) : 0;
+    const blend = isClose ? 0 : smooth(clamp((frac - HOLD) / (1 - HOLD)));
+    const weight = k => (bi === k ? 1 - blend : 0) + (bi === k - 1 ? blend : 0);
+    const nxt = Math.min(bi + 1, SEGS - 1);
+    const zoom = lerp(ZOOM[bi], ZOOM[nxt], blend) * (1 + 2.6 * hp * hp) * unit;
+    const sx = x => cx + x * zoom, sy = y => cy + y * zoom;
+
+    if (!revealed && b >= SEGS) { revealed = true; floodStart = now; floodFrom = 4.5 * zoom; }
+    if (revealed && b < SEGS - .1) { revealed = false; arrive.classList.remove('show'); arriveTitle.classList.remove('chroma-text-animate'); }
+    const flood = revealed ? (reduce ? 1 : clamp((now - floodStart) / 900)) : 0;
+    if (flood >= .55 && !arrive.classList.contains('show')) {
+      arrive.classList.add('show');
+      arriveTitle.classList.remove('chroma-text-animate'); void arriveTitle.offsetWidth;
+      setTimeout(() => arriveTitle.classList.add('chroma-text-animate'), 1100);
+    }
+
+    ctx.globalAlpha = 1; ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
+
+    const pts = new Array(N);
+    if (flood < 1) {
+      const A = SCENES[bi], B = SCENES[nxt];
+      for (let i = 0; i < N; i++) {
+        const a = A(i, t, hp), s = blend > 0 ? B(i, t, 0) : a;
+        const x = sx(lerp(a[0], s[0], blend)), y = sy(lerp(a[1], s[1], blend));
+        const c = blend > 0 ? mixc(a[2], s[2], blend) : a[2];
+        const size = Math.max(.8, lerp(a[3], s[3], blend) * zoom), alpha = lerp(a[4], s[4], blend) * (1 - flood);
+        pts[i] = [x, y]; ctx.fillStyle = rgb(c);
+        if (size > 2.3 && DARK) { ctx.globalAlpha = alpha * .12; ctx.beginPath(); ctx.arc(x, y, size * 3.2, 0, TAU); ctx.fill(); }
+        ctx.globalAlpha = alpha; ctx.beginPath(); ctx.arc(x, y, size, 0, TAU); ctx.fill();
+      }
+      const w5 = weight(5);                                  // the turn: connections form
+      if (w5 > 0) {
+        const M = Math.min(N, 170), maxD = 70 * zoom; ctx.lineWidth = 1; ctx.strokeStyle = rgb(C.fg);
+        for (let i = 0; i < M; i++) for (let j = i + 1; j < M; j++) {
+          const d = Math.hypot(pts[i][0] - pts[j][0], pts[i][1] - pts[j][1]);
+          if (d < maxD) { ctx.globalAlpha = w5 * .22 * (1 - d / maxD); ctx.beginPath(); ctx.moveTo(pts[i][0], pts[i][1]); ctx.lineTo(pts[j][0], pts[j][1]); ctx.stroke(); }
+        }
+      }
+      const w9 = weight(9);                                  // the team: one lead, connected
+      if (w9 > 0) {
+        ctx.lineWidth = 1; ctx.strokeStyle = rgb(C.mute);
+        for (let k = 0; k < 5; k++) { const ca = k / 5 * TAU - Math.PI / 2 + t * .1;
+          ctx.globalAlpha = w9 * .6; ctx.beginPath(); ctx.moveTo(sx(0), sy(0)); ctx.lineTo(sx(Math.cos(ca) * 240), sy(Math.sin(ca) * 150)); ctx.stroke(); }
+      }
+      const w4 = weight(4);                                  // the gap: Spectrum-style labels
+      if (w4 > 0) {
+        ctx.globalAlpha = w4 * .8; ctx.fillStyle = rgb(C.mid); ctx.textAlign = 'center';
+        ctx.font = `500 11px Inter, system-ui, sans-serif`;
+        if ('letterSpacing' in ctx) ctx.letterSpacing = '0.5px';
+        ctx.fillText('PILOT', sx(-330), sy(-200)); ctx.fillText('PRODUCTION', sx(330), sy(-200));
+        ctx.fillStyle = rgb(C.mid); ctx.globalAlpha = w4 * .8;
+        [-330, 330].forEach(px => { const w = (px < 0 ? 34 : 70) / 2 + 10; ctx.fillRect(sx(px) - w, sy(-200) - 11, 7, 2); ctx.fillRect(sx(px) - w, sy(-200) - 11, 2, 7); });
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // the close: three arcs fill around the spark (reason, evolution, execution)
+    const sparkR = revealed ? floodFrom + Math.pow(flood, 2) * Math.hypot(W, H) * .7 : 4.5 * zoom;
+    if (hp > 0 && flood < 1) {
+      const Rr = sparkR + 24;
+      ctx.globalAlpha = clamp(hp * 6) * (1 - flood); ctx.lineWidth = 4; ctx.lineCap = 'round';
+      ctx.strokeStyle = BORDER; ctx.beginPath(); ctx.arc(cx, cy, Rr, 0, TAU); ctx.stroke();
+      [C.mute, C.mid, C.fg].forEach((c, k) => {
+        const f = clamp(hp * 3.1 - k); if (f <= 0) return;
+        const a0 = -Math.PI / 2 + k * TAU / 3;
+        ctx.strokeStyle = rgb(c); ctx.beginPath(); ctx.arc(cx, cy, Rr, a0 + .06, a0 + .06 + f * (TAU / 3 - .12)); ctx.stroke();
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    // the spark: the idea, drawn in the foreground colour; at the close it ripples outward and the page fades in
+    const sa = revealed ? .85 * (1 - flood) : lerp(SPARK[bi], SPARK[nxt], blend);
+    if (sa > 0) {
+      const pulse = reduce ? 0 : Math.sin(now * .004) * .06 * (bi === 0 ? 1 : hp);
+      ctx.fillStyle = rgb(C.fg);
+      if (!revealed && DARK) { ctx.globalAlpha = sa * .07; ctx.beginPath(); ctx.arc(cx, cy, sparkR * 3.4, 0, TAU); ctx.fill(); }
+      ctx.globalAlpha = sa; ctx.beginPath(); ctx.arc(cx, cy, sparkR * (1 + pulse), 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
+    }
+
+    requestBeat(!isClose && (bi === 0 || frac < .58) ? bi : null);
+
+    const st = BEATS[bi].stage;
+    stagesEl.classList.toggle('gone', !(bi >= 6 && bi <= 8) || revealed);
+    if (st !== undefined) setStages(st);
+
+    startEl.classList.toggle('gone', userTook || b > 1.4 || revealed);
+    ctrlEl.classList.toggle('on', (started || b > .05) && !revealed);
+    nudgeEl.classList.toggle('on', !playing && (now - lastInput > 3200) && b > .3 && !revealed);
+    const pct = cur * 100;
+    progInd.style.transform = `translateX(-${100 - pct}%)`;
+    progEl.setAttribute('aria-valuenow', Math.round(pct));
+    requestAnimationFrame(frame);
+  }
+
+  document.getElementById('again').addEventListener('click', () => {
+    scrollTo({ top: 0, behavior: 'auto' }); target = cur = 0; lastInput = performance.now(); userTook = false;
+    if (!reduce) setTimeout(() => setPlaying(true), 600); else setPlaying(false);
+  });
+  addEventListener('resize', layout);
+  layout(); readScroll(); cur = target;
+  ctrlEl.innerHTML = ICON_PLAY;
+  requestAnimationFrame(frame);
+
+  // Autoplay: starts on its own after a short beat, unless the visitor prefers reduced motion
+  // or has already scrolled. Any scroll, swipe or key takes over; space or the button resumes.
+  const playBtn = document.getElementById('playBtn'), hint = document.getElementById('hint');
+  if (reduce) {
+    playBtn.hidden = false;
+    document.getElementById('hintText').textContent = 'or scroll to explore';
+  } else {
+    setTimeout(() => { if (!userTook && scrollY < 4) setPlaying(true); }, 1200);
+  }
+})();
+</script>
+</body>
+</html>
