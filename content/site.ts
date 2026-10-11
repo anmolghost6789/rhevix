@@ -10,7 +10,7 @@ export const site = {
   description:
     "Rhevix is an AI-first consulting, engineering and expert network company that takes AI from strategy to production for regulated enterprises and AI labs.",
   mantra: "Reason. Evolution. Execution.",
-  email: "hello@rhevix.com",
+  email: "sales@rhevix.com",
   // Registered company details for the footer and legal pages. Fill in before launch.
   legalName: "Rhevix",
   registeredAddress: "",
